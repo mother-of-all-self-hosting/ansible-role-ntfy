@@ -39,7 +39,7 @@ traefik.http.routers.{{ ntfy_identifier }}.tls={{ ntfy_container_labels_traefik_
 traefik.http.routers.{{ ntfy_identifier }}.tls.certResolver={{ ntfy_container_labels_traefik_tls_certResolver }}
 {% endif %}
 
-traefik.http.services.{{ ntfy_identifier }}.loadbalancer.server.port=80
+traefik.http.services.{{ ntfy_identifier }}.loadbalancer.server.port=8080
 {% endif %}
 
 {{ ntfy_container_labels_additional_labels }}
