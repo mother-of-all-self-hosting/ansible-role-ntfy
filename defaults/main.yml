@@ -185,7 +185,7 @@ ntfy_configuration: "{{ ntfy_configuration_yaml | from_yaml | combine(ntfy_confi
 # ntfy_credentials:
 #   - username: user1
 #     password: password1
-#     admin: false
+#     admin: true
 #   - username: user2
 #     password: password2
 #     admin: true

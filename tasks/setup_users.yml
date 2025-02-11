@@ -1,43 +1,36 @@
-
 ---
-- name: Create ntfy users
+
+- name: Restart ntfy container to create user database
+  ansible.builtin.systemd:
+    name: "{{ ntfy_identifier }}"
+    state: restarted
+  when: ntfy_credentials | length > 0
+
+- name: Allow anonymous write access for push messages
   command: >
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
-    --rm \
-    --env NTFY_PASSWORD={{ item.password }} \
-    --user={{ ntfy_uid }}:{{ ntfy_gid }} \
-    --mount type=bind,src={{ ntfy_config_dir_path }},dst=/etc/ntfy,ro \
-    --mount type=bind,src={{ ntfy_data_path }},dst=/data \
-    --network none \
-    {{ ntfy_container_image }} \
-    ntfy user add --role={{ item.admin | ternary("admin", "user") }} {{ item.username }}'
+    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run  --rm --env NTFY_PASSWORD={{ item.password }} --user={{ ntfy_uid }}:{{ ntfy_gid }} --mount type=bind,src={{ ntfy_config_dir_path }},dst=/etc/ntfy,ro --mount type=bind,src={{ ntfy_data_path }},dst=/data --network none {{ ntfy_container_image }}  access '*' 'up*' write-only'
   with_items: "{{ ntfy_credentials }}"
   when: ntfy_credentials | length > 0
+  ignore_errors: yes
+
+- name: Create ntfy users
+  command: >
+    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run  --rm --env NTFY_PASSWORD={{ item.password }} --user={{ ntfy_uid }}:{{ ntfy_gid }} --mount type=bind,src={{ ntfy_config_dir_path }},dst=/etc/ntfy,ro --mount type=bind,src={{ ntfy_data_path }},dst=/data --network none {{ ntfy_container_image }} user add {{ item.username }}'
+  with_items: "{{ ntfy_credentials }}"
+  when: ntfy_credentials | length > 0
+  ignore_errors: yes
 
 - name: Write ntfy users passwords
   command: >
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
-    --rm \
-    --env NTFY_PASSWORD={{ item.password }} \
-    --user={{ ntfy_uid }}:{{ ntfy_gid }} \
-    --mount type=bind,src={{ ntfy_config_dir_path }},dst=/etc/ntfy,ro \
-    --mount type=bind,src={{ ntfy_data_path }},dst=/data \
-    --network none \
-    {{ ntfy_container_image }} \
-    ntfy user change-pass {{ item.username }}'
+    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run  --rm --env NTFY_PASSWORD={{ item.password }} --user={{ ntfy_uid }}:{{ ntfy_gid }} --mount type=bind,src={{ ntfy_config_dir_path }},dst=/etc/ntfy,ro --mount type=bind,src={{ ntfy_data_path }},dst=/data --network none {{ ntfy_container_image }} user change-pass {{ item.username }}'
   with_items: "{{ ntfy_credentials }}"
   when: ntfy_credentials | length > 0
+  ignore_errors: yes
 
 - name: Write ntfy users roles
   command: >
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
-    --rm \
-    --env NTFY_PASSWORD={{ item.password }} \
-    --user={{ ntfy_uid }}:{{ ntfy_gid }} \
-    --mount type=bind,src={{ ntfy_config_dir_path }},dst=/etc/ntfy,ro \
-    --mount type=bind,src={{ ntfy_data_path }},dst=/data \
-    --network none \
-    {{ ntfy_container_image }} \
-    ntfy user change-role {{ item.username }} {{ item.admin | ternary("admin", "user") }}'
+    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run  --rm --env NTFY_PASSWORD={{ item.password }} --user={{ ntfy_uid }}:{{ ntfy_gid }} --mount type=bind,src={{ ntfy_config_dir_path }},dst=/etc/ntfy,ro --mount type=bind,src={{ ntfy_data_path }},dst=/data --network none {{ ntfy_container_image }} user change-role {{ item.username }} {{ item.admin | ternary("admin", "user") }}'
   with_items: "{{ ntfy_credentials }}"
   when: ntfy_credentials | length > 0
+  ignore_errors: yes
+
