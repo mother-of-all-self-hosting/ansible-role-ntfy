@@ -6,6 +6,10 @@
 
     - when: ntfy_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/install.yml"
+
+    - when: ntfy_enabled | bool
+      ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_users.yml"
+
   tags:
     - setup-all
     - setup-ntfy
