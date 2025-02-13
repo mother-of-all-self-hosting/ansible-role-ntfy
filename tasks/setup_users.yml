@@ -1,6 +1,6 @@
 ---
 
-- name: Restart ntfy container to create user database
+- name: Restart ntfy service to ensure user database is created
   ansible.builtin.systemd:
     name: "{{ ntfy_identifier }}"
     daemon_reload: true
