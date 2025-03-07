@@ -60,7 +60,7 @@ ntfy_container_additional_networks_custom: []
 ntfy_container_labels_traefik_enabled: true
 ntfy_container_labels_traefik_docker_network: "{{ ntfy_container_network }}"
 ntfy_container_labels_traefik_hostname: "{{ ntfy_hostname }}"
-# The path prefix must either be `/` or not end with a slash (e.g. `/cinny`).
+# The path prefix must either be `/` or not end with a slash (e.g. `/ntfy`).
 ntfy_container_labels_traefik_path_prefix: "{{ ntfy_path_prefix }}"
 ntfy_container_labels_traefik_rule: "Host(`{{ ntfy_container_labels_traefik_hostname }}`){% if ntfy_container_labels_traefik_path_prefix != '/' %} && PathPrefix(`{{ ntfy_container_labels_traefik_path_prefix }}`){% endif %}"
 ntfy_container_labels_traefik_priority: 0
@@ -107,9 +107,17 @@ ntfy_systemd_required_services_list_custom: []
 ntfy_systemd_wanted_services_list: []
 
 # Rate limits
+#
+# The total number of topics before the server rejects new topics.
 ntfy_global_topic_limit: 15000  # default
+#
+# The number of subscriptions (open connections) per visitor.
 ntfy_visitor_subscription_limit: 30  # default
+#
+# The initial bucket of requests each visitor has.
 ntfy_visitor_request_limit_burst: 60  # default
+#
+# The rate at which the bucket is refilled (one request per x).
 ntfy_visitor_request_limit_replenish: "5s"  # default
 
 # Controls the `web-root` configuraiton setting, which specifies what should be served by ntfy at the root path.
@@ -122,7 +130,7 @@ ntfy_visitor_request_limit_replenish: "5s"  # default
 ntfy_web_root: disable
 
 # Controls the NTFY_VISITOR_REQUEST_LIMIT_EXEMPT_HOSTS environment variable's value.
-# Exempt hosts can be defined as hostnames, IP addresses or network ranges.
+# Exempted hosts can be defined as hostnames, IP addresses or network ranges.
 #
 # Define your own in `ntfy_visitor_request_limit_exempt_hosts_hostnames_custom`.
 #
