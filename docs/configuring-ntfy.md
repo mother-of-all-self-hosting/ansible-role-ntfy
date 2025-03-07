@@ -61,6 +61,26 @@ ntfy_hostname: "example.com"
 
 After adjusting the hostname, make sure to adjust your DNS records to point the ntfy domain to your server.
 
+### Enable access control with authentication (optional)
+
+By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic. To restrict access to your ntfy instance, you can optionally configure authentication.
+
+To enable authentication, add users with a username and password to `ntfy_credentials` on your `vars.yml` file (adapt to your needs):
+
+```yaml
+ntfy_credentials:
+  - username: user1
+    password: password1
+    admin: true
+  - username: user2
+    password: password2
+    admin: false
+```
+
+If the variable is left empty (`ntfy_credentials: []`), authentication will be disabled, allowing unrestricted access to any topics.
+
+See [here](https://docs.ntfy.sh/config/#access-control) on the official documentation about authentication.
+
 ### Enable web app (optional)
 
 ntfy also has a web app where you can subscribe to and push to topics from the browser. The web app only runs in the browser locally (after downloading the JavaScript).

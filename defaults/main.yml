@@ -60,7 +60,7 @@ ntfy_container_additional_networks_custom: []
 ntfy_container_labels_traefik_enabled: true
 ntfy_container_labels_traefik_docker_network: "{{ ntfy_container_network }}"
 ntfy_container_labels_traefik_hostname: "{{ ntfy_hostname }}"
-# The path prefix must either be `/` or not end with a slash (e.g. `/cinny`).
+# The path prefix must either be `/` or not end with a slash (e.g. `/ntfy`).
 ntfy_container_labels_traefik_path_prefix: "{{ ntfy_path_prefix }}"
 ntfy_container_labels_traefik_rule: "Host(`{{ ntfy_container_labels_traefik_hostname }}`){% if ntfy_container_labels_traefik_path_prefix != '/' %} && PathPrefix(`{{ ntfy_container_labels_traefik_path_prefix }}`){% endif %}"
 ntfy_container_labels_traefik_priority: 0
