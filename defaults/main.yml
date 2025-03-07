@@ -130,7 +130,7 @@ ntfy_visitor_request_limit_replenish: "5s"  # default
 ntfy_web_root: disable
 
 # Controls the NTFY_VISITOR_REQUEST_LIMIT_EXEMPT_HOSTS environment variable's value.
-# Exempt hosts can be defined as hostnames, IP addresses or network ranges.
+# Exempted hosts can be defined as hostnames, IP addresses or network ranges.
 #
 # Define your own in `ntfy_visitor_request_limit_exempt_hosts_hostnames_custom`.
 #

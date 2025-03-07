@@ -73,6 +73,31 @@ To enable it, add the following configuration to your `vars.yml` file:
 ntfy_web_root: "app"
 ```
 
+### Edit rate limits (optional)
+
+By default, ntfy runs without authentication, so it is important to protect the server from abuse or overload. There are various rate limits enabled with the setting file. Under normal usage, ntfy should not encounter those limits at all.
+
+If necessary, you can configure the limits by adding these variables to your `vars.yml` file (adapt to your needs):
+
+```yaml
+ntfy_global_topic_limit: 15000  # default
+ntfy_visitor_subscription_limit: 30  # default
+ntfy_visitor_request_limit_burst: 60  # default
+ntfy_visitor_request_limit_replenish: "5s"  # default
+```
+
+See [this section](https://docs.ntfy.sh/config/#rate-limiting) on the official documentation for details about them.
+
+#### Exempt specific hosts from rate limiting
+
+It is possible to exempt certain hosts from rate limiting. Exempted hosts can be defined as hostnames, IP addresses or network ranges.
+
+You can define them by adding these variables to your `vars.yml` file (adapt to your needs):
+
+```yaml
+ntfy_visitor_request_limit_exempt_hosts_hostnames_custom: []
+```
+
 ### Extending the configuration
 
 There are some additional things you may wish to configure about the component.
