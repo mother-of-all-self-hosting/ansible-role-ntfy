@@ -65,3 +65,13 @@ ntfy_hostname: "example.com"
 ```
 
 After adjusting the hostname, make sure to adjust your DNS records to point the ntfy domain to your server.
+
+## Installing
+
+After configuring the playbook, run the installation command of your playbook as below:
+
+```sh
+ansible-playbook -i inventory/hosts setup.yml --tags=setup-all,start
+```
+
+If you use the [mash-playbook](https://github.com/mother-of-all-self-hosting/mash-playbook) or MDAD Ansible playbook, the shortcut commands with the [`just` program](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/docs/just.md) are also available: `just install-all` or `just setup-all`
