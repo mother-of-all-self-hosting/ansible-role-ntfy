@@ -6,6 +6,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 # Ntfy Ansible role
 
+[![REUSE status](https://api.reuse.software/badge/github.com/mother-of-all-self-hosting/ansible-role-ntfy)](https://api.reuse.software/info/github.com/mother-of-all-self-hosting/ansible-role-ntfy)
+
 This is an [Ansible](https://www.ansible.com/) role which installs [Ntfy](https://ntfy.sh/) to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
 
 This role *implicitly* depends on:
