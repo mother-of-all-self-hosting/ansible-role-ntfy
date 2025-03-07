@@ -75,3 +75,26 @@ ansible-playbook -i inventory/hosts setup.yml --tags=setup-all,start
 ```
 
 If you use the [mash-playbook](https://github.com/mother-of-all-self-hosting/mash-playbook) or MDAD Ansible playbook, the shortcut commands with the [`just` program](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/docs/just.md) are also available: `just install-all` or `just setup-all`
+
+## Usage
+
+To make use of your ntfy installation, on Android for example, you need two things:
+
+* the `ntfy` app
+* a UnifiedPush-compatible Matrix app
+
+You need to install the `ntfy` app on each device on which you want to receive push notifications through your ntfy server. The `ntfy` app will provide UnifiedPush notifications to any number of UnifiedPush-compatible messaging apps installed on the same device.
+
+### Setting up the `ntfy` Android app
+
+1. Install the [ntfy Android app](https://ntfy.sh/docs/subscribe/phone/) from F-droid or Google Play.
+2. In its Settings -> `General: Default server`, enter your ntfy server URL, such as `https://ntfy.example.com`.
+3. In its Settings -> `Advanced: Connection protocol`, choose `WebSockets`.
+
+That is all you need to do in the ntfy app. It has many other features, but for our purposes you can ignore them. In particular you do not need to follow any instructions about subscribing to a notification topic as UnifiedPush will do that automatically.
+
+### Web App
+
+ntfy also has a web app to subscribe to and push to topics from the browser. This may be helpful to further troubleshoot UnifiedPush problems or to use ntfy for other purposes. The web app only runs in the browser locally (after downloading the JavaScript).
+
+The web app is disabled in this playbook by default as the expectation is that most users won't use it. You can either use the [official hosted one](https://ntfy.sh/app) (it supports using other public reachable ntfy instances) or host it yourself by setting `ntfy_web_root: "app"` and re-running Ansible.
