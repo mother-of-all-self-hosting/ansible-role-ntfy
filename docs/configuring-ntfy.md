@@ -97,3 +97,18 @@ ntfy also has a web app to subscribe to and push to topics from the browser. The
 The web app is not enabled on this role by default. You can either use the [official hosted one](https://ntfy.sh/app) (it supports using other public reachable ntfy instances) or host it yourself by setting `ntfy_web_root: "app"` and re-running the installation command.
 
 After enabling the web app, you can access to it by going to the hostname specified above on the browser.
+
+## Troubleshooting
+
+### Check the service's logs
+
+You can find the logs in [systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html) by logging in to the server with SSH and running `journalctl -fu ntfy` (or how you/your playbook named the service, e.g. `matrix-ntfy`).
+
+#### Increase logging verbosity
+
+If you want to increase the verbosity, add the following configuration to your `vars.yml` file and re-run the playbook:
+
+```yaml
+ntfy_configuration_extension_yaml: |
+  log_level: DEBUG
+```
