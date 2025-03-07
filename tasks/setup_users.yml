@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 MASH project contributors
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 ---
 
 - name: Restart ntfy service to ensure user database is created
