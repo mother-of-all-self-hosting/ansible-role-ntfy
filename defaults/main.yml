@@ -179,7 +179,7 @@ ntfy_configuration_extension: "{{ ntfy_configuration_extension_yaml | from_yaml 
 ntfy_configuration: "{{ ntfy_configuration_yaml | from_yaml | combine(ntfy_configuration_extension, recursive=True) }}"
 
 # List of user credentials for ntfy authentication.
-# If left empty (ntfy_credentials: []), authentication will be disabled, 
+# If left empty (ntfy_credentials: []), authentication will be disabled,
 # allowing unrestricted access to all topics.
 # To enable authentication, add users with a username and password:
 # ntfy_credentials:

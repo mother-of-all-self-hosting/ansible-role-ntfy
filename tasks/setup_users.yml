@@ -6,7 +6,7 @@
     daemon_reload: true
     state: restarted
 
-- name: Allow anonymous write access for push messages 
+- name: Allow anonymous write access for push messages
   command: |
     {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
     --rm \
@@ -15,7 +15,7 @@
     --mount type=bind,src={{ ntfy_data_path }},dst=/data \
     --network none \
     {{ ntfy_container_image }} \
-     access '*' 'up*' write-only' 
+     access '*' 'up*' write-only'
   ignore_errors: true
 
 - name: Get existing ntfy users
@@ -106,4 +106,3 @@
   loop: "{{ users_to_delete }}"
   when: users_to_delete | length > 0
   ignore_errors: true
-
