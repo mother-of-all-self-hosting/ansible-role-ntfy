@@ -107,9 +107,17 @@ ntfy_systemd_required_services_list_custom: []
 ntfy_systemd_wanted_services_list: []
 
 # Rate limits
+#
+# The total number of topics before the server rejects new topics.
 ntfy_global_topic_limit: 15000  # default
+#
+# The number of subscriptions (open connections) per visitor.
 ntfy_visitor_subscription_limit: 30  # default
+#
+# The initial bucket of requests each visitor has.
 ntfy_visitor_request_limit_burst: 60  # default
+#
+# The rate at which the bucket is refilled (one request per x).
 ntfy_visitor_request_limit_replenish: "5s"  # default
 
 # Controls the `web-root` configuraiton setting, which specifies what should be served by ntfy at the root path.
