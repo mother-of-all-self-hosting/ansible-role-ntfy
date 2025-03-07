@@ -33,7 +33,7 @@ See the project's [documentation](https://docs.ntfy.sh/) to learn what ntfy does
 
 ## Adjusting the playbook configuration
 
-To enable Jitsi with this role, add the following configuration to your `vars.yml` file.
+To enable ntfy with this role, add the following configuration to your `vars.yml` file.
 
 **Note**: the path should be something like `inventory/host_vars/matrix.example.com/vars.yml` if you use the [MDAD (matrix-docker-ansible-deploy)](https://github.com/spantaleev/matrix-docker-ansible-deploy) Ansible playbook.
 
@@ -41,27 +41,27 @@ To enable Jitsi with this role, add the following configuration to your `vars.ym
 ```yaml
 ########################################################################
 #                                                                      #
-# jitsi                                                                #
+# ntfy                                                                 #
 #                                                                      #
 ########################################################################
 
-jitsi_enabled: true
+ntfy_enabled: true
 
 ########################################################################
 #                                                                      #
-# /jitsi                                                               #
+# /ntfy                                                                #
 #                                                                      #
 ########################################################################
 ```
 
 ### Set the hostname
 
-**Note**: if you use the MDAD Ansible playbook, it installs Jitsi on the `jitsi.` subdomain (`jitsi.example.com`) by default, so this setting is optional.
+**Note**: if you use the MDAD Ansible playbook, it installs ntfy on the `ntfy.` subdomain (`ntfy.example.com`) by default, so this setting is optional.
 
-To serve Jitsi you need to set the hostname as well. To do so, add the following configuration to your `vars.yml` file. Make sure to replace `example.com` with your own value.
+To serve ntfy you need to set the hostname as well. To do so, add the following configuration to your `vars.yml` file. Make sure to replace `example.com` with your own value.
 
 ```yaml
-jitsi_hostname: "example.com"
+ntfy_hostname: "example.com"
 ```
 
-After adjusting the hostname, make sure to adjust your DNS records to point the Jitsi domain to your server.
+After adjusting the hostname, make sure to adjust your DNS records to point the ntfy domain to your server.
