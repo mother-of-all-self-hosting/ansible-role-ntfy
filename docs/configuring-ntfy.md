@@ -103,7 +103,7 @@ You need to install the `ntfy` app on each device on which you want to receive p
 
 To set up the `ntfy` Android app, you can follow the steps below:
 
-1. Install the [ntfy Android app](https://ntfy.sh/docs/subscribe/phone/) from F-droid or Google Play.
+1. Install the [ntfy Android app](https://docs.ntfy.sh/subscribe/phone/) from F-droid or Google Play.
 2. In its Settings -> `General: Default server`, enter your ntfy server URL, such as `https://ntfy.example.com`.
 3. In its Settings -> `Advanced: Connection protocol`, choose `WebSockets`.
 
