@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: 2023 - 2024 Slavi Pantaleev
 # SPDX-FileCopyrightText: 2024 Sergio Durigan Junior
 # SPDX-FileCopyrightText: 2025 MASH project contributors
+# SPDX-FileCopyrightText: 2025 Suguru Hirahara
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -106,6 +107,15 @@ ntfy_systemd_required_services_list_custom: []
 # List of systemd services that the ntfy systemd service wants
 ntfy_systemd_wanted_services_list: []
 
+# Controls how email notifications are configured.
+ntfy_config_mailer_enabled: false
+ntfy_config_mailer_smtp_addr: ''  # Hostname
+ntfy_config_mailer_smtp_port: 587
+ntfy_config_mailer_smtp_protocol: ''
+ntfy_config_mailer_smtp_username: ''  # Username of the SMTP user
+ntfy_config_mailer_smtp_password: ''  # Password of the SMTP user
+ntfy_config_mailer_smtp_from: ''  # Email address of the sender
+
 # Rate limits
 #
 # The total number of topics before the server rejects new topics.
@@ -119,6 +129,12 @@ ntfy_visitor_request_limit_burst: 60  # default
 #
 # The rate at which the bucket is refilled (one request per x).
 ntfy_visitor_request_limit_replenish: "5s"  # default
+#
+# The initial bucket of emails each visitor has.
+ntfy_visitor_email_limit_burst: "16"  # default
+#
+# The rate at which the bucket is refilled (one email per x).
+ntfy_visitor_email_limit_replenish: "1h"  # default
 
 # Controls the `web-root` configuraiton setting, which specifies what should be served by ntfy at the root path.
 # See: https://github.com/binwiederhier/ntfy/blob/main/server/server.yml

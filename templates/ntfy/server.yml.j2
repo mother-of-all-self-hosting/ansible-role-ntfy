@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2023 - 2024 Slavi Pantaleev
 # SPDX-FileCopyrightText: 2025 MASH project contributors
+# SPDX-FileCopyrightText: 2025 Suguru Hirahara
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -21,4 +22,15 @@ web-root: {{ ntfy_web_root | to_json }}
 {% if ntfy_credentials | length > 0 %}
 auth-file: /data/auth.db
 auth-default-access: deny-all
+{% endif %}
+
+{% if ntfy_config_mailer_enabled %}
+smtp-sender-addr: "{{ ntfy_config_mailer_smtp_addr }}:{{ ntfy_config_mailer_smtp_port }}"
+smtp-sender-user: "{{ ntfy_config_mailer_smtp_username }}"
+smtp-sender-pass: "{{ ntfy_config_mailer_smtp_password }}"
+smtp-sender-from: "{{ ntfy_config_mailer_smtp_from }}"
+
+# Rate limits
+visitor-email-limit-burst: {{ ntfy_visitor_email_limit_burst | to_json }}
+visitor-email-limit-replenish: {{ ntfy_visitor_email_limit_replenish | to_json }}
 {% endif %}

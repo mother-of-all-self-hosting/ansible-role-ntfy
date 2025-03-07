@@ -93,20 +93,59 @@ To enable it, add the following configuration to your `vars.yml` file:
 ntfy_web_root: "app"
 ```
 
+### Enable E-mail notification (optional)
+
+ntfy can forward notification messages via e-mail with a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages via e-mail (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
+
+To enable it, add the following configuration to your `vars.yml` file (adapt to your needs):
+
+```yaml
+ntfy_config_mailer_enabled: true
+ntfy_config_mailer_smtp_addr: ''  # Hostname
+ntfy_config_mailer_smtp_port: 587
+ntfy_config_mailer_smtp_protocol: ''
+ntfy_config_mailer_smtp_username: ''  # Username of the SMTP user
+ntfy_config_mailer_smtp_password: ''  # Password of the SMTP user
+ntfy_config_mailer_smtp_from: ''  # Email address of the sender
+```
+
+⚠️ **Note**: your IP address is included in the notification e-mail's body in order to prevent abuse.
+
 ### Edit rate limits (optional)
 
 By default, ntfy runs without authentication, so it is important to protect the server from abuse or overload. There are various rate limits enabled with the setting file. Under normal usage, ntfy should not encounter those limits at all.
 
-If necessary, you can configure the limits by adding these variables to your `vars.yml` file (adapt to your needs):
+If necessary, you can configure the limits by adding these variables to your `vars.yml` file and adjusting them:
 
 ```yaml
-ntfy_global_topic_limit: 15000  # default
-ntfy_visitor_subscription_limit: 30  # default
-ntfy_visitor_request_limit_burst: 60  # default
-ntfy_visitor_request_limit_replenish: "5s"  # default
+# The total number of topics before the server rejects new topics.
+ntfy_global_topic_limit: 15000
+
+# The number of subscriptions (open connections) per visitor.
+ntfy_visitor_subscription_limit: 30
+
+# The initial bucket of requests each visitor has.
+ntfy_visitor_request_limit_burst: 60
+
+# The rate at which the bucket is refilled (one request per x).
+ntfy_visitor_request_limit_replenish: "5s"
 ```
 
 See [this section](https://docs.ntfy.sh/config/#rate-limiting) on the official documentation for details about them.
+
+#### Edit rate limits for email notification
+
+To prevent abuse, the rate limiting for email notification is strict. With the default configuration, 16 e-mails per visitor (based on IP address) are allowed. After the quota has been exceeded, one email per hour is allowed.
+
+If necessary, you can configure the limits by adding these variables to your `vars.yml` file and adjusting them:
+
+```yaml
+# The initial bucket of emails each visitor has.
+ntfy_visitor_email_limit_burst: "16"
+
+# The rate at which the bucket is refilled (one email per x).
+ntfy_visitor_email_limit_replenish: "1h"
+```
 
 #### Exempt specific hosts from rate limiting
 
