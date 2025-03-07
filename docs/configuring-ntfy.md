@@ -66,6 +66,18 @@ ntfy_hostname: "example.com"
 
 After adjusting the hostname, make sure to adjust your DNS records to point the ntfy domain to your server.
 
+### Enable web app (optional)
+
+ntfy also has a web app where you can subscribe to and push to topics from the browser. The web app only runs in the browser locally (after downloading the JavaScript).
+
+The web app is not enabled on this role by default, because it doesn't work when `ntfy_path_prefix` is not `/` (see: https://github.com/binwiederhier/ntfy/issues/256).
+
+To enable it, add the following configuration to your `vars.yml` file:
+
+```yaml
+ntfy_web_root: "app"
+```
+
 ### Extending the configuration
 
 There are some additional things you may wish to configure about the component.
@@ -88,25 +100,23 @@ If you use the [mash-playbook](https://github.com/mother-of-all-self-hosting/mas
 
 ## Usage
 
-To make use of your ntfy installation, on Android for example, you need the `ntfy` app.
+You can use your self-hosted ntfy server with its application for Android and iOS and/or with its web app (if enabled).
 
 You need to install the `ntfy` app on each device on which you want to receive push notifications through your ntfy server. The `ntfy` app will provide UnifiedPush notifications to any number of UnifiedPush-compatible messaging apps installed on the same device.
 
 ### Setting up the `ntfy` Android app
 
+To set up the `ntfy` Android app, you can follow the steps below:
+
 1. Install the [ntfy Android app](https://ntfy.sh/docs/subscribe/phone/) from F-droid or Google Play.
 2. In its Settings -> `General: Default server`, enter your ntfy server URL, such as `https://ntfy.example.com`.
 3. In its Settings -> `Advanced: Connection protocol`, choose `WebSockets`.
 
-That is all you need to do in the ntfy app. It has many other features, but for our purposes you can ignore them. In particular you do not need to follow any instructions about subscribing to a notification topic as UnifiedPush will do that automatically.
+If you are setting up the iOS app, download the app [here](https://apps.apple.com/us/app/ntfy/id1625396347) and follow the same steps.
 
 ### Web App
 
-ntfy also has a web app to subscribe to and push to topics from the browser. The web app only runs in the browser locally (after downloading the JavaScript).
-
-The web app is not enabled on this role by default. You can either use the [official hosted one](https://ntfy.sh/app) (it supports using other public reachable ntfy instances) or host it yourself by setting `ntfy_web_root: "app"` and re-running the installation command.
-
-After enabling the web app, you can access to it by going to the hostname specified above on the browser.
+To use the web app, you can do so by going to the hostname specified above (`example.com`) on the browser.
 
 ## Troubleshooting
 
