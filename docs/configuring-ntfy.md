@@ -66,6 +66,14 @@ ntfy_hostname: "example.com"
 
 After adjusting the hostname, make sure to adjust your DNS records to point the ntfy domain to your server.
 
+### Extending the configuration
+
+There are some additional things you may wish to configure about the component.
+
+Take a look at:
+
+- [`defaults/main.yml`](../defaults/main.yml) for some variables that you can customize via your `vars.yml` file. You can override settings (even those that don't have dedicated playbook variables) using the `ntfy_configuration_extension_yaml` variable
+
 ## Installing
 
 After configuring the playbook, run the installation command of your playbook as below:
