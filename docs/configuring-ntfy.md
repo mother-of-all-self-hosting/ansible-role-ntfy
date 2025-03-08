@@ -95,7 +95,9 @@ ntfy_web_root: "app"
 
 ### Enable E-mail notification (optional)
 
-ntfy can forward notification messages via e-mail with a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages via e-mail (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
+ntfy can forward notification messages as email via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
+
+If the web app is enabled, you can forward messages to a specified email address, publishing notification at the same time.
 
 To enable it, add the following configuration to your `vars.yml` file (adapt to your needs):
 
@@ -108,7 +110,9 @@ ntfy_smtp_sender_password: ''  # Password of the SMTP user
 ntfy_smtp_sender_from: ''  # Email address of the sender
 ```
 
-⚠️ **Note**: your IP address is included in the notification e-mail's body in order to prevent abuse.
+⚠️ **Notes**:
+- Your IP address is included in the notification email's body in order to prevent abuse.
+- Without setting an authentication method such as DKIM, SPF, and DMARC for your hostname, notification email is most likely to be quarantined as spam at recipient's mail servers. If you have set up a mail server with [our exim-relay Ansible role](https://github.com/mother-of-all-self-hosting/ansible-role-exim-relay), you can enable DKIM signing with it. Refer [its documentation](https://github.com/mother-of-all-self-hosting/ansible-role-exim-relay/blob/main/docs/configuring-exim-relay.md#enable-dkim-support-optional) for details.
 
 ### Edit rate limits (optional)
 
@@ -134,7 +138,7 @@ See [this section](https://docs.ntfy.sh/config/#rate-limiting) on the official d
 
 #### Edit rate limits for email notification
 
-To prevent abuse, the rate limiting for email notification is strict. With the default configuration, 16 e-mails per visitor (based on IP address) are allowed. After the quota has been exceeded, one email per hour is allowed.
+To prevent abuse, rate limiting for email notification is strict. With the default configuration, 16 messages per visitor (based on IP address) are allowed. After the quota has been exceeded, one message per hour is allowed.
 
 If necessary, you can configure the limits by adding these variables to your `vars.yml` file and adjusting them:
 
