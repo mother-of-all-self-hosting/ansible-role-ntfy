@@ -93,20 +93,62 @@ To enable it, add the following configuration to your `vars.yml` file:
 ntfy_web_root: "app"
 ```
 
+### Enable E-mail notification (optional)
+
+ntfy can forward notification messages as email via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
+
+If the web app is enabled, you can forward messages to a specified email address, publishing notification at the same time.
+
+To enable it, add the following configuration to your `vars.yml` file (adapt to your needs):
+
+```yaml
+ntfy_smtp_sender_enabled: true
+ntfy_smtp_sender_addr_host: ''  # Hostname
+ntfy_smtp_sender_addr_port: 587
+ntfy_smtp_sender_username: ''  # Username of the SMTP user
+ntfy_smtp_sender_password: ''  # Password of the SMTP user
+ntfy_smtp_sender_from: ''  # Email address of the sender
+```
+
+⚠️ **Notes**:
+- Your IP address is included in the notification email's body in order to prevent abuse.
+- Without setting an authentication method such as DKIM, SPF, and DMARC for your hostname, notification email is most likely to be quarantined as spam at recipient's mail servers. If you have set up a mail server with [our exim-relay Ansible role](https://github.com/mother-of-all-self-hosting/ansible-role-exim-relay), you can enable DKIM signing with it. Refer [its documentation](https://github.com/mother-of-all-self-hosting/ansible-role-exim-relay/blob/main/docs/configuring-exim-relay.md#enable-dkim-support-optional) for details.
+
 ### Edit rate limits (optional)
 
 By default, ntfy runs without authentication, so it is important to protect the server from abuse or overload. There are various rate limits enabled with the setting file. Under normal usage, ntfy should not encounter those limits at all.
 
-If necessary, you can configure the limits by adding these variables to your `vars.yml` file (adapt to your needs):
+If necessary, you can configure the limits by adding these variables to your `vars.yml` file and adjusting them:
 
 ```yaml
-ntfy_global_topic_limit: 15000  # default
-ntfy_visitor_subscription_limit: 30  # default
-ntfy_visitor_request_limit_burst: 60  # default
-ntfy_visitor_request_limit_replenish: "5s"  # default
+# The total number of topics before the server rejects new topics.
+ntfy_global_topic_limit: 15000
+
+# The number of subscriptions (open connections) per visitor.
+ntfy_visitor_subscription_limit: 30
+
+# The initial bucket of requests each visitor has.
+ntfy_visitor_request_limit_burst: 60
+
+# The rate at which the bucket is refilled (one request per x).
+ntfy_visitor_request_limit_replenish: "5s"
 ```
 
 See [this section](https://docs.ntfy.sh/config/#rate-limiting) on the official documentation for details about them.
+
+#### Edit rate limits for email notification
+
+To prevent abuse, rate limiting for email notification is strict. With the default configuration, 16 messages per visitor (based on IP address) are allowed. After the quota has been exceeded, one message per hour is allowed.
+
+If necessary, you can configure the limits by adding these variables to your `vars.yml` file and adjusting them:
+
+```yaml
+# The initial bucket of emails each visitor has.
+ntfy_visitor_email_limit_burst: "16"
+
+# The rate at which the bucket is refilled (one email per x).
+ntfy_visitor_email_limit_replenish: "1h"
+```
 
 #### Exempt specific hosts from rate limiting
 
