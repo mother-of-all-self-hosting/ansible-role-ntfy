@@ -43,6 +43,12 @@ As ntfy Android app functions as the Distributor too, you do not have to install
 - Unlike push notifications using Google's FCM or Apple's APNs, each end-user can choose the Push Server which one prefer. This means that deploying a ntfy server cannot enforce a UnifiedPush-compatible application (and its users) to use the exact server.
 - [UnifiedPush does not work on iOS](https://unifiedpush.org/users/faq/#will-unifiedpush-ever-work-on-ios).
 
+### iOS instant notification
+
+Because iOS heavily restricts background processing, it is impossible to implement instant push notifications without a central server.
+
+To implement instant notification through the self-hosted ntfy server, see [this official documentation](https://docs.ntfy.sh/config/#ios-instant-notifications) for instructions.
+
 ## Adjusting the playbook configuration
 
 To enable a self-hosted ntfy server with this role, add the following configuration to your `vars.yml` file.
