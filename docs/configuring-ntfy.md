@@ -144,7 +144,7 @@ If necessary, you can configure the limits by adding these variables to your `va
 
 ```yaml
 # The initial bucket of emails each visitor has.
-ntfy_visitor_email_limit_burst: "16"
+ntfy_visitor_email_limit_burst: 16
 
 # The rate at which the bucket is refilled (one email per x).
 ntfy_visitor_email_limit_replenish: "1h"
