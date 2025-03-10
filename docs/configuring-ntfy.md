@@ -26,7 +26,7 @@ It is also compatible with [UnifiedPush](https://unifiedpush.org), the standard 
 
 See the project's [documentation](https://docs.ntfy.sh/) to learn what ntfy does and why it might be useful to you.
 
-**Note**: In contrast to push notifications using Google's FCM or Apple's APNs, the use of UnifiedPush allows each end-user to choose the push notification server that they prefer. As a consequence, deploying this ntfy server does not by itself ensure any particular user or device or client app will use it.
+**Note**: unlike push notifications using Google's FCM or Apple's APNs, each end-user can choose the UnifiedPush-enabled push notification server that one prefer. This means that deploying a ntfy server does not ensure any particular user, device or application will use it.
 
 ## Adjusting the playbook configuration
 
