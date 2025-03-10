@@ -24,7 +24,7 @@ ntfy lets you send push notifications to your phone or desktop via scripts from 
 
 See the project's [documentation](https://docs.ntfy.sh/) to learn what ntfy does and why it might be useful to you.
 
-**Note**: you need to install [the `ntfy` app](https://docs.ntfy.sh/subscribe/phone/) on the device in order to receive push notifications from the ntfy server. Notifications can also be sent/received on the ntfy's web app. Refer [this section](#usage) for details about how to use the apps.
+**Note**: you need to install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/) on the device in order to receive push notifications from the ntfy server. Notifications can also be sent/received on the ntfy's web app. Refer [this section](#usage) for details about how to use the apps.
 
 ### UnifiedPush support
 
@@ -32,11 +32,11 @@ ntfy implements [UnifiedPush](https://unifiedpush.org), the standard which makes
 
 Working as a **Push Server**, a ntfy server can forward messages to a **Distributor** running on Android and other devices (see [here](https://unifiedpush.org/users/distributors/#definitions) for the definition of the Push Server and the Distributor).
 
-This role installs and manages a self-hosted ntfy server as the Push Server, which the Distributor (such as `ntfy` app) on your device listens to.
+This role installs and manages a self-hosted ntfy server as the Push Server, which the Distributor (such as ntfy Android app) on your device listens to.
 
 Your UnifiedPush-compatible applications (such as [Tusky](https://tusky.app/) and [DAVx⁵](https://www.davx5.com/)) listen to the Distributor, and push notitications are "distributed" from it. This means that the UnifiedPush-compatible applications cannot receive push notifications from the Push Server without the Distributor.
 
-As `ntfy` app functions as the Distributor too, you do not have to install something else on your device.
+As ntfy Android app functions as the Distributor too, you do not have to install something else on your device.
 
 💡 **Notes**:
 - Refer [this official documentation of UnifiedPush](https://unifiedpush.org/users/troubleshooting/#understand-unifiedpush) for a simple explanation about relationship among UnifiedPush-compatible application, Distributor, Push Server, and the application's server.
@@ -196,11 +196,11 @@ If you use the MDAD / MASH playbook, the shortcut commands with the [`just` prog
 
 ## Usage
 
-To receive push notifications from your ntfy server, you need to **install [the `ntfy` app](https://docs.ntfy.sh/subscribe/phone/)** and then **subscribe to a topic** where messages will be published. You can also send/receive notifications on the ntfy's web app at `example.com`.
+To receive push notifications from your ntfy server, you need to **install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/)** and then **subscribe to a topic** where messages will be published. You can also send/receive notifications on the ntfy's web app at `example.com`.
 
-### Install the `ntfy` app
+### Install the ntfy Android/iOS app
 
-To set up the app, you can follow the steps below:
+To set up the Android app, you can follow the steps below:
 
 1. Install the [ntfy Android app](https://docs.ntfy.sh/subscribe/phone/) from F-droid or Google Play.
 2. In its Settings -> `General: Default server`, enter the ntfy server URL, such as `https://ntfy.example.com`.
@@ -234,7 +234,7 @@ ntfy is built as [progressive web app (PWA)](https://docs.ntfy.sh/subscribe/pwa/
 
 ### UnifiedPush-compatible application
 
-To receive push notification on a UnifiedPush-compatible application, it must be able to communicate with the `ntfy` app which works as the Distributor on the same device.
+To receive push notification on a UnifiedPush-compatible application, it must be able to communicate with the ntfy Android app which works as the Distributor on the same device.
 
 Consult to documentation of applications for instruction about how to enable UnifiedPush support. Note that some applications quietly detect and use the Distributor, so you do not always have to configure the applications.
 
