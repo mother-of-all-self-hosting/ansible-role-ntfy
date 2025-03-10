@@ -93,6 +93,8 @@ To enable it, add the following configuration to your `vars.yml` file:
 ntfy_web_root: "app"
 ```
 
+See [this section](https://docs.ntfy.sh/subscribe/web/) on the official documentation for details about how to use the web app.
+
 ### Enable E-mail notification (optional)
 
 ntfy can forward notification messages as email via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
