@@ -20,7 +20,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 This is an [Ansible](https://www.ansible.com/) role which installs [ntfy](https://ntfy.sh/) to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
 
-Using the [UnifiedPush](https://unifiedpush.org) standard, ntfy enables self-hosted (Google-free) push notifications from servers to UnifiedPush-compatible apps running on Android and other devices.
+ntfy lets you send push notifications to your phone or desktop via scripts from any computer, using simple HTTP PUT or POST requests.
+
+It is also compatible with [UnifiedPush](https://unifiedpush.org), the standard which enables receiving push notifications without using Google's Firebase Cloud Messaging (FCM) service. Working as a **UnifiedPush distributor**, ntfy can forward messages to UnifiedPush-compatible apps running on Android and other devices.
 
 See the project's [documentation](https://docs.ntfy.sh/) to learn what ntfy does and why it might be useful to you.
 
