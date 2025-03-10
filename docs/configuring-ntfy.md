@@ -18,20 +18,42 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 # Setting up ntfy
 
-This is an [Ansible](https://www.ansible.com/) role which installs [ntfy](https://ntfy.sh/) to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
+This is an [Ansible](https://www.ansible.com/) role which installs the [ntfy](https://ntfy.sh/) push notification server to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
 
-Using the [UnifiedPush](https://unifiedpush.org) standard, ntfy enables self-hosted (Google-free) push notifications from servers to UnifiedPush-compatible apps running on Android and other devices.
+ntfy lets you send push notifications to your phone or desktop via scripts from any computer, using simple HTTP PUT or POST requests.
 
 See the project's [documentation](https://docs.ntfy.sh/) to learn what ntfy does and why it might be useful to you.
 
-**Note**: In contrast to push notifications using Google's FCM or Apple's APNs, the use of UnifiedPush allows each end-user to choose the push notification server that they prefer. As a consequence, deploying this ntfy server does not by itself ensure any particular user or device or client app will use it.
+**Note**: you need to install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/) on the device in order to receive push notifications from the ntfy server. Notifications can also be sent/received on the ntfy's web app. Refer [this section](#usage) for details about how to use the apps.
+
+### UnifiedPush support
+
+ntfy implements [UnifiedPush](https://unifiedpush.org), the standard which makes it possible to send and receive push notifications without using Google's Firebase Cloud Messaging (FCM) service.
+
+Working as a **Push Server**, a ntfy server can forward messages to a **Distributor** running on Android and other devices (see [here](https://unifiedpush.org/users/distributors/#definitions) for the definition of the Push Server and the Distributor).
+
+This role installs and manages a self-hosted ntfy server as the Push Server, which the Distributor (such as ntfy Android app) on your device listens to.
+
+Your UnifiedPush-compatible applications (such as [Tusky](https://tusky.app/) and [DAVx⁵](https://www.davx5.com/)) listen to the Distributor, and push notitications are "distributed" from it. This means that the UnifiedPush-compatible applications cannot receive push notifications from the Push Server without the Distributor.
+
+As ntfy Android app functions as the Distributor too, you do not have to install something else on your device.
+
+💡 **Notes**:
+- Refer [this official documentation of UnifiedPush](https://unifiedpush.org/users/troubleshooting/#understand-unifiedpush) for a simple explanation about relationship among UnifiedPush-compatible application, Distributor, Push Server, and the application's server.
+- Unlike push notifications using Google's FCM or Apple's APNs, each end-user can choose the Push Server which one prefer. This means that deploying a ntfy server cannot enforce a UnifiedPush-compatible application (and its users) to use the exact server.
+- [UnifiedPush does not work on iOS](https://unifiedpush.org/users/faq/#will-unifiedpush-ever-work-on-ios).
+
+### iOS instant notification
+
+Because iOS heavily restricts background processing, it is impossible to implement instant push notifications without a central server.
+
+To implement instant notification through the self-hosted ntfy server, see [this official documentation](https://docs.ntfy.sh/config/#ios-instant-notifications) for instructions.
 
 ## Adjusting the playbook configuration
 
-To enable ntfy with this role, add the following configuration to your `vars.yml` file.
+To enable a self-hosted ntfy server with this role, add the following configuration to your `vars.yml` file.
 
 **Note**: the path should be something like `inventory/host_vars/matrix.example.com/vars.yml` if you use the [matrix-docker-ansible-deploy (MDAD)](https://github.com/spantaleev/matrix-docker-ansible-deploy) or [Mother-of-All-Self-Hosting (MASH)](https://github.com/mother-of-all-self-hosting/mash-playbook) Ansible playbook.
-
 
 ```yaml
 ########################################################################
@@ -83,9 +105,7 @@ See [here](https://docs.ntfy.sh/config/#access-control) on the official document
 
 ### Enable web app (optional)
 
-ntfy also has a web app where you can subscribe to and push to topics from the browser. The web app only runs in the browser locally (after downloading the JavaScript).
-
-The web app is not enabled on this role by default, because it doesn't work when `ntfy_path_prefix` is not `/` (see: https://github.com/binwiederhier/ntfy/issues/256).
+ntfy also has a web app where you can subscribe to and push to topics from the browser. The web app is not enabled on this role by default, because it doesn't work when `ntfy_path_prefix` is not `/` (see: https://github.com/binwiederhier/ntfy/issues/256).
 
 To enable it, add the following configuration to your `vars.yml` file:
 
@@ -182,23 +202,49 @@ If you use the MDAD / MASH playbook, the shortcut commands with the [`just` prog
 
 ## Usage
 
-You can use your self-hosted ntfy server with its application for Android and iOS and/or with its web app (if enabled).
+To receive push notifications from your ntfy server, you need to **install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/)** and then **subscribe to a topic** where messages will be published. You can also send/receive notifications on the ntfy's web app at `example.com`.
 
-You need to install the `ntfy` app on each device on which you want to receive push notifications through your ntfy server. The `ntfy` app will provide UnifiedPush notifications to any number of UnifiedPush-compatible messaging apps installed on the same device.
+### Install the ntfy Android/iOS app
 
-### Setting up the `ntfy` Android app
-
-To set up the `ntfy` Android app, you can follow the steps below:
+To set up the Android app, you can follow the steps below:
 
 1. Install the [ntfy Android app](https://docs.ntfy.sh/subscribe/phone/) from F-droid or Google Play.
-2. In its Settings -> `General: Default server`, enter your ntfy server URL, such as `https://ntfy.example.com`.
+2. In its Settings -> `General: Default server`, enter the ntfy server URL, such as `https://ntfy.example.com`.
 3. In its Settings -> `Advanced: Connection protocol`, choose `WebSockets`.
 
 If you are setting up the iOS app, download the app [here](https://apps.apple.com/us/app/ntfy/id1625396347) and follow the same steps.
 
+### Subscribe to a topic
+
+*This step can be skipped if you use the app as solely as a Distributor for the UnifiedPush-compatible applications.*
+
+After installing the app, you can create or subscribe to a topic where messages will be published. **Because anyone can subscribe a topic (unless authentication is enabled), choose ones which cannot be guessed easily.**
+
+After subscribing to a topic (e.g. `SR34vLnN`), you can make sure that your installation is properly configured by sending a test message to it with a POST request as below:
+
+```sh
+curl -d "Test notification 🔔" https://example.com/SR34vLnN
+```
+
+If everything works as expected, it will create a notification on your device.
+
 ### Web App
 
-To use the web app, you can do so by going to the hostname specified above (`example.com`) on the browser.
+The web app lets you subscribe and publish messages to ntfy topics. To use it, you can do so by going to the hostname specified above (`example.com`) on the browser. Note that the web app only runs in the browser locally (after downloading the JavaScript).
+
+See [this page](https://docs.ntfy.sh/subscribe/web/) of the official documentation for details about how to use the web app.
+
+#### Progressive Web App (PWA)
+
+ntfy is built as [progressive web app (PWA)](https://docs.ntfy.sh/subscribe/pwa/), which can be installed **both on desktop and mobile devices**. See [here](https://docs.ntfy.sh/subscribe/web/#background-notifications) for more information.
+
+### UnifiedPush-compatible application
+
+To receive push notification on a UnifiedPush-compatible application, it must be able to communicate with the ntfy Android app which works as the Distributor on the same device.
+
+Consult to documentation of applications for instruction about how to enable UnifiedPush support. Note that some applications quietly detect and use the Distributor, so you do not always have to configure the applications.
+
+If you are configuring UnifiedPush on a [Matrix](https://matrix.org) client, you can refer [this section](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/docs/configuring-playbook-ntfy.md#setting-up-a-unifiedpush-compatible-matrix-client) on MDAD playbook's documentation about configuring ntfy.
 
 ## Troubleshooting
 
