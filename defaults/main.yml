@@ -130,7 +130,7 @@ ntfy_visitor_request_limit_burst: 60  # default
 ntfy_visitor_request_limit_replenish: "5s"  # default
 #
 # The initial bucket of emails each visitor has.
-ntfy_visitor_email_limit_burst: "16"  # default
+ntfy_visitor_email_limit_burst: 16  # default
 #
 # The rate at which the bucket is refilled (one email per x).
 ntfy_visitor_email_limit_replenish: "1h"  # default
