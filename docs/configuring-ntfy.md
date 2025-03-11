@@ -18,13 +18,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 # Setting up ntfy
 
-This is an [Ansible](https://www.ansible.com/) role which installs the [ntfy](https://ntfy.sh/) push notification server to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
+This is an [Ansible](https://www.ansible.com/) role which installs a [ntfy](https://ntfy.sh/) push notification server to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
 
 ntfy lets you send push notifications to your phone or desktop via scripts from any computer, using simple HTTP PUT or POST requests.
 
 See the project's [documentation](https://docs.ntfy.sh/) to learn what ntfy does and why it might be useful to you.
 
-**Note**: you need to install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/) on the device in order to receive push notifications from the ntfy server. Notifications can also be sent/received on the ntfy's web app. Refer [this section](#usage) for details about how to use the apps.
+**Note**: you need to install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/) on your device in order to receive push notifications from the ntfy server. Notifications can also be sent/received on the ntfy's web app. Refer [this section](#usage) for details about how to use the apps.
 
 ### UnifiedPush support
 
@@ -85,7 +85,7 @@ After adjusting the hostname, make sure to adjust your DNS records to point the 
 
 ### Enable access control with authentication (optional)
 
-By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic. To restrict access to your ntfy instance, you can optionally configure authentication with [access control](https://docs.ntfy.sh/config/#access-control).
+By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic. To restrict access to it, you can optionally configure authentication with [access control](https://docs.ntfy.sh/config/#access-control).
 
 To enable authentication, add users with a username and password to `ntfy_credentials` on your `vars.yml` file (adapt to your needs):
 
@@ -105,7 +105,9 @@ See [here](https://docs.ntfy.sh/config/#access-control) on the official document
 
 ### Enable web app (optional)
 
-ntfy also has a web app where you can subscribe to and push to topics from the browser. The web app is not enabled on this role by default, because it doesn't work when `ntfy_path_prefix` is not `/` (see: https://github.com/binwiederhier/ntfy/issues/256).
+The ntfy server can be accessed via its web app where you can subscribe to and push to topics from the browser. Note that the web app only runs in the browser locally (after downloading the JavaScript).
+
+The web app is not enabled on this role by default, because it doesn't work when `ntfy_path_prefix` is not `/` (see: https://github.com/binwiederhier/ntfy/issues/256).
 
 To enable it, add the following configuration to your `vars.yml` file:
 
@@ -115,7 +117,7 @@ ntfy_web_root: "app"
 
 ### Allow attachments (optional)
 
-ntfy can be configured to allow users to [attach files](https://docs.ntfy.sh/publish/#attachments) to notifications (default: max. 15M per file, 5G in total).
+The ntfy server can be configured to allow users to [attach files](https://docs.ntfy.sh/publish/#attachments) to notifications (default: max. 15M per file, 5G in total).
 
 To allow attachments, add the following configuration to your `vars.yml` file:
 
@@ -131,7 +133,7 @@ ntfy_attachment_expiry_duration: "10h"
 
 ### Enable E-mail notification (optional)
 
-ntfy can forward [notification messages as email](https://docs.ntfy.sh/publish/#e-mail-notifications) via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
+The ntfy server can forward [notification messages as email](https://docs.ntfy.sh/publish/#e-mail-notifications) via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
 
 If the web app is enabled, you can forward messages to a specified email address, publishing notification at the same time.
 
@@ -152,7 +154,7 @@ ntfy_smtp_sender_from: ''  # Email address of the sender
 
 ### Edit rate limits (optional)
 
-By default, ntfy runs without authentication, so it is important to protect the server from abuse or overload. There are various rate limits enabled with the setting file. Under normal usage, ntfy should not encounter those limits at all.
+By default, the ntfy server runs without authentication, so it is important to protect the server from abuse or overload. There are various rate limits enabled with the setting file. Under normal usage, ntfy should not encounter those limits at all.
 
 If necessary, you can configure the limits by adding these variables to your `vars.yml` file and adjusting them:
 
@@ -218,7 +220,7 @@ If you use the MDAD / MASH playbook, the shortcut commands with the [`just` prog
 
 ## Usage
 
-To receive push notifications from your ntfy server, you need to **install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/)** and then **subscribe to a topic** where messages will be published. You can also send/receive notifications on the ntfy's web app at `example.com`.
+To receive push notifications from the ntfy server, you need to **install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/)** and then **subscribe to a topic** where messages will be published. You can also send/receive notifications on the ntfy's web app at `example.com`.
 
 ### Install the ntfy Android/iOS app
 
@@ -232,7 +234,7 @@ If you are setting up the iOS app, download the app [here](https://apps.apple.co
 
 ### Subscribe to a topic
 
-*This step can be skipped if you use the app as solely as a Distributor for the UnifiedPush-compatible applications.*
+*This step can be skipped if you use the app solely as a Distributor for the UnifiedPush-compatible applications.*
 
 After installing the app, you can create or subscribe to a topic where messages will be published. **Because anyone can subscribe a topic (unless authentication is enabled), choose ones which cannot be guessed easily.**
 
@@ -246,7 +248,7 @@ If everything works as expected, it will create a notification on your device.
 
 ### Web App
 
-The web app lets you subscribe and publish messages to ntfy topics. To use it, you can do so by going to the hostname specified above (`example.com`) on the browser. Note that the web app only runs in the browser locally (after downloading the JavaScript).
+The web app lets you subscribe and publish messages to ntfy topics. To use it, you can do so by going to the hostname specified above (`example.com`) on the browser.
 
 See [this page](https://docs.ntfy.sh/subscribe/web/) of the official documentation for details about how to use the web app.
 
@@ -266,7 +268,7 @@ If you are configuring UnifiedPush on a [Matrix](https://matrix.org) client, you
 
 ### Check the service's logs
 
-You can find the logs in [systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html) by logging in to the server with SSH and running `journalctl -fu ntfy` (or how you/your playbook named the service, e.g. `matrix-ntfy`).
+You can find the logs in [systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html) by logging in to the server with SSH and running `journalctl -fu ntfy` (or how you/your playbook named the service, e.g. `mash-ntfy`, `matrix-ntfy`).
 
 #### Increase logging verbosity
 
