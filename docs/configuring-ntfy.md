@@ -20,13 +20,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 This is an [Ansible](https://www.ansible.com/) role which installs a [ntfy](https://ntfy.sh/) push notification server to run as a [Docker](https://www.docker.com/) container wrapped in a systemd service.
 
-ntfy lets you send push notifications to your phone or desktop via scripts from any computer, using simple HTTP PUT or POST requests.
+ntfy lets you send push notifications to your phone or desktop via scripts from any computer, using simple HTTP PUT or POST requests. It enables you to send/receive notifications, without relying on servers owned and controlled by third parties.
 
 See the project's [documentation](https://docs.ntfy.sh/) to learn what ntfy does and why it might be useful to you.
 
 **Note**: you need to install [the ntfy Android/iOS app](https://docs.ntfy.sh/subscribe/phone/) on your device in order to receive push notifications from the ntfy server. Notifications can also be sent/received on the ntfy's web app. Refer [this section](#usage) for details about how to use the apps.
 
 ### UnifiedPush support
+
+⚠️ [UnifiedPush does not work on iOS.](https://unifiedpush.org/users/faq/#will-unifiedpush-ever-work-on-ios)
 
 ntfy implements [UnifiedPush](https://unifiedpush.org), the standard which makes it possible to send and receive push notifications without using Google's Firebase Cloud Messaging (FCM) service.
 
@@ -41,7 +43,6 @@ As ntfy Android app functions as the Distributor too, you do not have to install
 💡 **Notes**:
 - Refer [this official documentation of UnifiedPush](https://unifiedpush.org/users/troubleshooting/#understand-unifiedpush) for a simple explanation about relationship among UnifiedPush-compatible application, Distributor, Push Server, and the application's server.
 - Unlike push notifications using Google's FCM or Apple's APNs, each end-user can choose the Push Server which one prefer. This means that deploying a ntfy server cannot enforce a UnifiedPush-compatible application (and its users) to use the exact server.
-- [UnifiedPush does not work on iOS](https://unifiedpush.org/users/faq/#will-unifiedpush-ever-work-on-ios).
 
 ### iOS instant notification
 
