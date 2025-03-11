@@ -105,7 +105,7 @@ See [here](https://docs.ntfy.sh/config/#access-control) on the official document
 
 ### Enable web app (optional)
 
-The ntfy server can be accessed via its web app where you can subscribe to and push to topics from the browser. Note that the web app only runs in the browser locally (after downloading the JavaScript).
+The ntfy server can be accessed via its web app where you can subscribe to and push to topics from the browser. Note that since the web app only runs in the browser locally after downloading assets for it, there is not additional security risk of running it (refer [here](https://docs.ntfy.sh/faq/#can-i-disable-the-web-app-can-i-protect-it-with-a-login-screen)).
 
 The web app is not enabled on this role by default, because it doesn't work when `ntfy_path_prefix` is not `/` (see: https://github.com/binwiederhier/ntfy/issues/256).
 
@@ -135,7 +135,7 @@ ntfy_attachment_expiry_duration: "10h"
 
 The ntfy server can forward [notification messages as email](https://docs.ntfy.sh/publish/#e-mail-notifications) via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
 
-If the web app is enabled, you can forward messages to a specified email address, publishing notification at the same time.
+If the web app is enabled, you can forward messages to a specified email address from there as well, creating a notification at the same time.
 
 To enable it, add the following configuration to your `vars.yml` file (adapt to your needs):
 
