@@ -19,7 +19,7 @@ visitor-request-limit-replenish: {{ ntfy_visitor_request_limit_replenish | to_js
 web-root: {{ ntfy_web_root | to_json }}
 
 {% if ntfy_attachment_enabled %}
-attachment-cache-dir: /data/cache/attachments
+attachment-cache-dir: /cache/attachments
 attachment-total-size-limit: {{ ntfy_attachment_total_size_limit | to_json }}
 attachment-file-size-limit: {{ ntfy_attachment_file_size_limit | to_json }}
 attachment-expiry-duration: {{ ntfy_attachment_expiry_duration | to_json }}
