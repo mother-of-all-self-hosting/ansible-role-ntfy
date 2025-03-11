@@ -113,6 +113,22 @@ To enable it, add the following configuration to your `vars.yml` file:
 ntfy_web_root: "app"
 ```
 
+### Allow attachments (optional)
+
+ntfy can be configured to allow users to attach files to notifications (default: max. 15M per file, 5G in total).
+
+To allow attachments, add the following configuration to your `vars.yml` file:
+
+```yaml
+ntfy_attachment_enabled: true
+```
+
+Note that attachments are stored as disk cache for **three hours** by default. To change the period, add the following configuration to your `vars.yml` file and adjust the value as below (adapt to your needs):
+
+```yaml
+ntfy_attachment_expiry_duration: "10h"
+```
+
 ### Enable E-mail notification (optional)
 
 ntfy can forward notification messages as email via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
