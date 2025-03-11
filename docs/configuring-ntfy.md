@@ -266,6 +266,8 @@ If you are configuring UnifiedPush on a [Matrix](https://matrix.org) client, you
 
 ## Troubleshooting
 
+The simple [UnifiedPush troubleshooting](https://unifiedpush.org/users/troubleshooting/) app [UP-Example](https://f-droid.org/en/packages/org.unifiedpush.example/) can be used to manually test UnifiedPush registration and operation on an Android device.
+
 ### Check the service's logs
 
 You can find the logs in [systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html) by logging in to the server with SSH and running `journalctl -fu ntfy` (or how you/your playbook named the service, e.g. `mash-ntfy`, `matrix-ntfy`).
