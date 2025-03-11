@@ -16,7 +16,8 @@ ntfy_identifier: ntfy
 ntfy_base_path: "{{ ntfy_identifier }}"
 ntfy_config_dir_path: "{{ ntfy_base_path }}/config"
 ntfy_data_path: "{{ ntfy_base_path }}/data"
-ntfy_attachment_cache_dir_path: "{{ ntfy_base_path }}/data/cache/attachments"
+ntfy_cache_path: "{{ ntfy_base_path }}/cache"
+ntfy_attachment_cache_dir_path: "{{ ntfy_cache_path }}/attachments"
 
 ntfy_version: v2.11.0
 
