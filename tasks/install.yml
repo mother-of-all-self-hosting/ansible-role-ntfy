@@ -17,15 +17,6 @@
     - "{{ ntfy_base_path }}"
     - "{{ ntfy_config_dir_path }}"
     - "{{ ntfy_data_path }}"
-
-- name: Ensure ntfy paths for cache directories exists
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    mode: 0755
-    owner: "{{ ntfy_uid }}"
-    group: "{{ ntfy_gid }}"
-  with_items:
     - "{{ ntfy_cache_path }}"
     - "{{ ntfy_attachment_cache_dir_path }}"
 
