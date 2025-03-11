@@ -85,7 +85,7 @@ After adjusting the hostname, make sure to adjust your DNS records to point the 
 
 ### Enable access control with authentication (optional)
 
-By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic. To restrict access to your ntfy instance, you can optionally configure authentication.
+By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic. To restrict access to your ntfy instance, you can optionally configure authentication with [access control](https://docs.ntfy.sh/config/#access-control).
 
 To enable authentication, add users with a username and password to `ntfy_credentials` on your `vars.yml` file (adapt to your needs):
 
@@ -115,7 +115,7 @@ ntfy_web_root: "app"
 
 ### Allow attachments (optional)
 
-ntfy can be configured to allow users to attach files to notifications (default: max. 15M per file, 5G in total).
+ntfy can be configured to allow users to [attach files](https://docs.ntfy.sh/publish/#attachments) to notifications (default: max. 15M per file, 5G in total).
 
 To allow attachments, add the following configuration to your `vars.yml` file:
 
@@ -131,7 +131,7 @@ ntfy_attachment_expiry_duration: "10h"
 
 ### Enable E-mail notification (optional)
 
-ntfy can forward notification messages as email via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
+ntfy can forward [notification messages as email](https://docs.ntfy.sh/publish/#e-mail-notifications) via a SMTP server for outgoing messages. If configured, you can set the `X-Email` header to send messages as email (e.g. `curl -d "This is a test notification to my email address" -H "X-Email: alice@example.com" example.com/example_topic`).
 
 If the web app is enabled, you can forward messages to a specified email address, publishing notification at the same time.
 
