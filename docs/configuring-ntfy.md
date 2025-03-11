@@ -258,7 +258,7 @@ ntfy is built as [progressive web app (PWA)](https://docs.ntfy.sh/subscribe/pwa/
 
 ### UnifiedPush-compatible application
 
-To receive push notification on a UnifiedPush-compatible application, it must be able to communicate with the ntfy Android app which works as the Distributor on the same device.
+To receive push notifications on a UnifiedPush-compatible application, it must be able to communicate with the ntfy Android app which works as the Distributor on the same device.
 
 Consult to documentation of applications for instruction about how to enable UnifiedPush support. Note that some applications quietly detect and use the Distributor, so you do not always have to configure the applications.
 
