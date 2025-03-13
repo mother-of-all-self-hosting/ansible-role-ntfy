@@ -213,7 +213,7 @@ ntfy_metrics_default_enabled: true
 Alternatively, you can expose the endpoint via a specified IP address and/or port by adding the following configuration to your `vars.yml` file (adapt to your needs). `ntfy_metrics_listen_http_host` can be omitted.
 
 ```yaml
-ntfy_metrics_listen_http_host: 10.0.1.1
+ntfy_metrics_listen_http_host: 0.0.0.0
 ntfy_metrics_listen_http_port: 9090
 ```
 
