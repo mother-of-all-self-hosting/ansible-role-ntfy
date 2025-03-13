@@ -87,7 +87,7 @@ After adjusting the hostname, make sure to adjust your DNS records to point the 
 
 ### Enable access control with authentication (optional)
 
-By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic. To restrict access to it, you can optionally configure authentication with [access control](https://docs.ntfy.sh/config/#access-control).
+**By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic.** To restrict access to it, you can optionally configure authentication with [access control](https://docs.ntfy.sh/config/#access-control).
 
 To enable authentication, add users with a username and password to `ntfy_credentials` on your `vars.yml` file (adapt to your needs):
 
