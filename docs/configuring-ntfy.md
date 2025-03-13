@@ -270,6 +270,14 @@ To set up the Android app, you can follow the steps below:
 
 If you are setting up the iOS app, download the app [here](https://apps.apple.com/us/app/ntfy/id1625396347) and follow the same steps.
 
+### Log in to your account (optional)
+
+If you have enabled [the access control](#enable-access-control-with-authentication-optional), **you need to log in to the account on the ntfy app**. Otherwise, it will not be able to receive notifications for either itself or UnifiedPush-compatible applications on the device.
+
+To log in to the account on the Android/iOS app, go to the `Settings` on its UI, `General` → `Manage users` → `Add new user`, then input the service URL, the username and password. To the service URL, specify `https://example.com` (the same value as `ntfy_hostname`).
+
+If you use the web app, go to the Settings from its main UI, and click the "Add user" anchor link on the "Manage users" section to log in.
+
 ### Subscribe to a topic
 
 *This step can be skipped if you use the app solely as a Distributor for the UnifiedPush-compatible applications.*
