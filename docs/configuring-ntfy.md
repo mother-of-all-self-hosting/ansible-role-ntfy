@@ -111,6 +111,8 @@ UnifiedPush requires application servers to be provided anonymous write access t
 
 The ntfy server can be accessed via its web app where you can subscribe to and push to topics from the browser. Note that since the web app only runs in the browser locally after downloading assets for it, there is not additional security risk of running it (refer [here](https://docs.ntfy.sh/faq/#can-i-disable-the-web-app-can-i-protect-it-with-a-login-screen)).
 
+💡 If you are concerned for abuse of your ntfy server, it is recommended to enable access control with authentication.
+
 The web app is not enabled on this role by default, because it doesn't work when `ntfy_path_prefix` is not `/` (see: https://github.com/binwiederhier/ntfy/issues/256).
 
 To enable it, add the following configuration to your `vars.yml` file:
