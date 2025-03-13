@@ -199,6 +199,13 @@ ntfy_visitor_request_limit_exempt_hosts_container_networks: |
 ntfy_visitor_request_limit_exempt_hosts_container_networks_auto: []
 ntfy_visitor_request_limit_exempt_hosts_container_networks_custom: []
 
+# Control whether a /metrics endpoint is exposed for the default ntfy server.
+ntfy_metrics_default_enabled: false
+
+# Control whether the /metrics endpoint is exposed via a specified IP address and/or port.
+# IP address can be omitted.
+ntfy_metrics_listen_http_host: ''
+ntfy_metrics_listen_http_port: ''
 
 # Controls whether the self-check feature should validate SSL certificates.
 ntfy_self_check_validate_certificates: true

@@ -200,6 +200,25 @@ You can define them by adding these variables to your `vars.yml` file (adapt to 
 ntfy_visitor_request_limit_exempt_hosts_hostnames_custom: []
 ```
 
+### Expose an endpoint for Prometheus (optional)
+
+You can configure the ntfy server so that it can expose a `/metrics` endpoint for Prometheus.
+
+To expose the endpoint with the default port, add the following configuration to your `vars.yml` file:
+
+```yaml
+ntfy_metrics_default_enabled: true
+```
+
+Alternatively, you can expose the endpoint via a specified IP address and/or port by adding the following configuration to your `vars.yml` file (adapt to your needs). IP address can be omitted.
+
+```yaml
+ntfy_metrics_listen_http_host: 10.0.1.1
+ntfy_metrics_listen_http_port: 9090
+```
+
+See [this section](https://docs.ntfy.sh/config/#monitoring) on the official documentation for details.
+
 ### Extending the configuration
 
 There are some additional things you may wish to configure about the component.
