@@ -198,11 +198,24 @@ ntfy_visitor_email_limit_replenish: "1h"
 
 It is possible to exempt certain hosts from rate limiting. Exempted hosts can be defined as hostnames, IP addresses or network ranges.
 
-You can define them by adding these variables to your `vars.yml` file (adapt to your needs):
+You can define them by adding the following configuration to your `vars.yml` file:
 
 ```yaml
 ntfy_visitor_request_limit_exempt_hosts_hostnames_custom: []
 ```
+
+For example, when using the ntfy server for your [Matrix](https://matrix.org) server to send push notifications on UnifiedPush, it is convenient to exempt its hostname from request rate limiting.
+
+To do so, add the following configuration to your `vars.yml` file (adapt to your needs):
+
+```yaml
+ntfy_visitor_request_limit_exempt_hosts_hostnames_custom: |
+  {{
+    ["matrix.example.com"]
+  }}
+```
+
+**Note**: if you install and manage the ntfy server with the MDAD Ansible playbook, this configuration is not necessary as the hostname of the Matrix server is exempted from rate limiting by default with its [`group_vars/matrix_servers`](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/group_vars/matrix_servers) file.
 
 ### Expose an endpoint for Prometheus (optional)
 
