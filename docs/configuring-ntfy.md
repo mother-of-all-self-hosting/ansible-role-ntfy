@@ -105,6 +105,8 @@ If the variable is left empty (`ntfy_credentials: []`), authentication will be d
 
 See [here](https://docs.ntfy.sh/config/#access-control) on the official documentation about authentication.
 
+UnifiedPush requires application servers to be provided anonymous write access to the topic which will be used for pushing messages, according to the ntfy's documentation [here](https://docs.ntfy.sh/config/#example-unifiedpush). As this role takes care of the configuration when creating users (see: [tasks/setup_users.yml](../tasks/setup_users.yml)), you do not need to allow it manually by running `ntfy access` command as described on the documentation.
+
 ### Enable web app (optional)
 
 The ntfy server can be accessed via its web app where you can subscribe to and push to topics from the browser. Note that since the web app only runs in the browser locally after downloading assets for it, there is not additional security risk of running it (refer [here](https://docs.ntfy.sh/faq/#can-i-disable-the-web-app-can-i-protect-it-with-a-login-screen)).
