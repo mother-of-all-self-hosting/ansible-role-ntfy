@@ -87,7 +87,7 @@ After adjusting the hostname, make sure to adjust your DNS records to point the 
 
 ### Enable access control with authentication (optional)
 
-By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic. To restrict access to it, you can optionally configure authentication with [access control](https://docs.ntfy.sh/config/#access-control).
+**By default, the ntfy server is open for everyone, meaning anyone can read and write to any topic.** To restrict access to it, you can optionally configure authentication with [access control](https://docs.ntfy.sh/config/#access-control).
 
 To enable authentication, add users with a username and password to `ntfy_credentials` on your `vars.yml` file (adapt to your needs):
 
@@ -105,9 +105,13 @@ If the variable is left empty (`ntfy_credentials: []`), authentication will be d
 
 See [here](https://docs.ntfy.sh/config/#access-control) on the official documentation about authentication.
 
+UnifiedPush requires application servers to be provided anonymous write access to the topic which will be used for pushing messages, according to the ntfy's documentation [here](https://docs.ntfy.sh/config/#example-unifiedpush). As this role takes care of the configuration when creating users (see: [tasks/setup_users.yml](../tasks/setup_users.yml)), you do not need to allow it manually by running `ntfy access` command as described on the documentation.
+
 ### Enable web app (optional)
 
 The ntfy server can be accessed via its web app where you can subscribe to and push to topics from the browser. Note that since the web app only runs in the browser locally after downloading assets for it, there is not additional security risk of running it (refer [here](https://docs.ntfy.sh/faq/#can-i-disable-the-web-app-can-i-protect-it-with-a-login-screen)).
+
+💡 If you are concerned for abuse of your ntfy server, it is recommended to enable access control with authentication.
 
 The web app is not enabled on this role by default, because it doesn't work when `ntfy_path_prefix` is not `/` (see: https://github.com/binwiederhier/ntfy/issues/256).
 
@@ -194,11 +198,24 @@ ntfy_visitor_email_limit_replenish: "1h"
 
 It is possible to exempt certain hosts from rate limiting. Exempted hosts can be defined as hostnames, IP addresses or network ranges.
 
-You can define them by adding these variables to your `vars.yml` file (adapt to your needs):
+You can define them by adding the following configuration to your `vars.yml` file:
 
 ```yaml
 ntfy_visitor_request_limit_exempt_hosts_hostnames_custom: []
 ```
+
+For example, when using the ntfy server for your [Matrix](https://matrix.org) server to send push notifications on UnifiedPush, it is convenient to exempt its hostname from request rate limiting.
+
+To do so, add the following configuration to your `vars.yml` file (adapt to your needs):
+
+```yaml
+ntfy_visitor_request_limit_exempt_hosts_hostnames_custom: |
+  {{
+    ["matrix.example.com"]
+  }}
+```
+
+**Note**: if you install and manage the ntfy server with the MDAD Ansible playbook, this configuration is not necessary as the hostname of the Matrix server is exempted from rate limiting by default with its [`group_vars/matrix_servers`](https://github.com/spantaleev/matrix-docker-ansible-deploy/blob/master/group_vars/matrix_servers) file.
 
 ### Expose an endpoint for Prometheus (optional)
 
@@ -252,6 +269,14 @@ To set up the Android app, you can follow the steps below:
 3. In its Settings -> `Advanced: Connection protocol`, choose `WebSockets`.
 
 If you are setting up the iOS app, download the app [here](https://apps.apple.com/us/app/ntfy/id1625396347) and follow the same steps.
+
+### Log in to your account (optional)
+
+If you have enabled [the access control](#enable-access-control-with-authentication-optional), **you need to log in to the account on the ntfy app**. Otherwise, it will not be able to receive notifications for either itself or UnifiedPush-compatible applications on the device.
+
+To log in to the account on the Android/iOS app, go to the `Settings` on its UI, `General` → `Manage users` → `Add new user`, then input the service URL, the username and password. To the service URL, specify `https://example.com` (the same value as `ntfy_hostname`).
+
+If you use the web app, go to the Settings from its main UI, and click the "Add user" anchor link on the "Manage users" section to log in.
 
 ### Subscribe to a topic
 
