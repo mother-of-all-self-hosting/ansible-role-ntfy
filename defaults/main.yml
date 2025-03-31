@@ -28,13 +28,15 @@ ntfy_gid: ''
 # The hostname at which ntfy is served.
 ntfy_hostname: ''
 
+ntfy_scheme: https
+
 # The path at which ntfy is exposed.
 # This value must either be `/` or not end with a slash (e.g. `/ntfy`).
 ntfy_path_prefix: /
 
 # Public facing base URL of the ntfy service.
 # It should not end with a slash.
-ntfy_base_url: "https://{{ ntfy_hostname }}{{ '' if ntfy_path_prefix == '/' else ntfy_path_prefix }}"
+ntfy_base_url: "{{ ntfy_scheme }}://{{ ntfy_hostname }}{{ '' if ntfy_path_prefix == '/' else ntfy_path_prefix }}"
 
 ntfy_container_image: "{{ ntfy_container_image_registry_prefix }}binwiederhier/ntfy:{{ ntfy_version }}"
 ntfy_container_image_registry_prefix: "{{ ntfy_container_image_registry_prefix_upstream }}"
