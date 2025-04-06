@@ -19,8 +19,7 @@
     --mount type=bind,src={{ ntfy_data_path }},dst=/data \
     --network none \
     {{ ntfy_container_image }} \
-    access '*' 'up*' write-only'
-  ignore_errors: true
+    access "*" "up*" write-only'
 
 - name: Get existing ntfy users
   command: |
