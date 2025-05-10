@@ -52,6 +52,9 @@ ntfy_container_http_host_bind_port: ''
 # The base container network. It will be auto-created by this role if it doesn't exist already.
 ntfy_container_network: "{{ ntfy_identifier }}"
 
+# The port number in the container
+ntfy_container_http_port: 8080
+
 # A list of additional container networks that the container would be connected to.
 # The role does not create these networks, so make sure they already exist.
 # Use this to expose this container to another reverse proxy, which runs in a different container network.

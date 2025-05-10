@@ -30,7 +30,7 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_sy
 			{% endfor %}
 			--network={{ ntfy_container_network }} \
 			{% if ntfy_container_http_host_bind_port %}
-			-p {{ ntfy_container_http_host_bind_port }}:8080 \
+			-p {{ ntfy_container_http_host_bind_port }}:{{ ntfy_container_http_port }} \
 			{% endif %}
 			--label-file={{ ntfy_base_path }}/labels \
 			--health-interval={{ ntfy_container_health_interval }} \
