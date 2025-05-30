@@ -16,7 +16,7 @@
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/install.yml"
 
     - name: Set up ntfy users
-    - when:
+      when:
         - ntfy_enabled | bool
         - ntfy_credentials | length > 0
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_users.yml"
