@@ -61,6 +61,7 @@
   loop: "{{ ntfy_credentials }}"
   when: item.username in users_to_add
   ignore_errors: true
+  no_log: true  # suppress the output which includes credentials
 
 - name: Write ntfy users passwords
   command: |
@@ -76,6 +77,7 @@
   loop: "{{ ntfy_credentials }}"
   when: item.username in existing_users
   ignore_errors: true
+  no_log: true  # suppress the output which includes credentials
 
 - name: Write ntfy users roles
   command: |
@@ -91,6 +93,7 @@
   loop: "{{ ntfy_credentials }}"
   when: item.username in existing_users
   ignore_errors: true
+  no_log: true  # suppress the output which includes credentials
 
 - name: Identify users to delete
   set_fact:
