@@ -206,7 +206,7 @@ ntfy_visitor_email_limit_burst: 16  # default
 # The rate at which the bucket is refilled (one email per x).
 ntfy_visitor_email_limit_replenish: "1h"  # default
 
-# Controls the `web-root` configuraiton setting, which specifies what should be served by ntfy at the root path.
+# Controls the `web-root` configuration setting, which specifies what should be served by ntfy at the root path.
 # See: https://github.com/binwiederhier/ntfy/blob/main/server/server.yml
 #
 # We don't serve anything there by default, because:
