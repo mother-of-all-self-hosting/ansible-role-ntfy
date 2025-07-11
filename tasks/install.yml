@@ -5,15 +5,22 @@
 
 ---
 
+- name: Ensure ntfy base path exists
+  ansible.builtin.file:
+    path: "{{ ntfy_base_path }}"
+    state: directory
+    mode: 0750
+    owner: "{{ ntfy_uid }}"
+    group: "{{ ntfy_gid }}"
+
 - name: Ensure ntfy paths exists
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     mode: 0750
-    owner: "{{ ntfy_uid }}"
-    group: "{{ ntfy_gid }}"
+    owner: "{{ ntfy_host_filesystem_uid }}"
+    group: "{{ ntfy_host_filesystem_gid }}"
   with_items:
-    - "{{ ntfy_base_path }}"
     - "{{ ntfy_config_dir_path }}"
     - "{{ ntfy_data_path }}"
 
@@ -22,8 +29,8 @@
     content: "{{ ntfy_configuration | to_nice_yaml(indent=2, width=999999) }}"
     dest: "{{ ntfy_config_dir_path }}/server.yml"
     mode: 0644
-    owner: "{{ ntfy_uid }}"
-    group: "{{ ntfy_gid }}"
+    owner: "{{ ntfy_host_filesystem_uid }}"
+    group: "{{ ntfy_host_filesystem_gid }}"
 
 - name: Ensure ntfy labels installed
   ansible.builtin.template:

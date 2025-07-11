@@ -5,6 +5,15 @@
 
 ---
 
+# If docker userns is activated, the files that are mounted in the container must have a different uid and gid on the Docker host.
+- name: Determine uid and gid for the directories which are mounted in the container
+  ansible.builtin.set_fact:
+    ntfy_host_filesystem_uid: "{{ ntfy_uid if not ntfy_docker_userns_enabled else (ntfy_uid | int + ntfy_docker_userns_offset) | string }}"
+    ntfy_host_filesystem_gid: "{{ ntfy_gid if not ntfy_docker_userns_enabled else (ntfy_gid | int + ntfy_docker_userns_offset) | string }}"
+  when: postgres_enabled | bool
+  tags:
+    - always
+
 - block:
     - when: ntfy_enabled | bool
       ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
