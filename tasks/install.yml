@@ -10,7 +10,7 @@
   ansible.builtin.file:
     path: "{{ ntfy_base_path }}"
     state: directory
-    mode: 0750
+    mode: "0750"
     owner: "{{ ntfy_uid }}"
     group: "{{ ntfy_gid }}"
 
