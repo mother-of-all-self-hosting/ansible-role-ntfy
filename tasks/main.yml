@@ -10,7 +10,7 @@
   ansible.builtin.set_fact:
     ntfy_host_filesystem_uid: "{{ ntfy_uid if not ntfy_docker_userns_enabled else (ntfy_uid | int + ntfy_docker_userns_offset) | string }}"
     ntfy_host_filesystem_gid: "{{ ntfy_gid if not ntfy_docker_userns_enabled else (ntfy_gid | int + ntfy_docker_userns_offset) | string }}"
-  when: postgres_enabled | bool
+  when: ntfy_enabled | bool
   tags:
     - always
 
