@@ -77,8 +77,14 @@ ntfy_container_labels_traefik_entrypoints: web-secure
 ntfy_container_labels_traefik_tls: "{{ ntfy_container_labels_traefik_entrypoints != 'web' }}"
 ntfy_container_labels_traefik_tls_certResolver: default  # noqa var-naming
 
+# Controls which additional headers to attach to all HTTP requests.
+# To add your own custom request headers, use `ntfy_container_labels_traefik_additional_request_headers_custom`
+ntfy_container_labels_traefik_additional_request_headers: "{{ ntfy_container_labels_traefik_additional_request_headers_auto | combine(ntfy_container_labels_traefik_additional_request_headers_custom) }}"
+ntfy_container_labels_traefik_additional_request_headers_auto: {}
+ntfy_container_labels_traefik_additional_request_headers_custom: {}
+
 # Controls which additional headers to attach to all HTTP responses.
-# To add your own headers, use `ntfy_container_labels_traefik_additional_response_headers_custom`
+# To add your own custom response headers, use `ntfy_container_labels_traefik_additional_response_headers_custom`
 ntfy_container_labels_traefik_additional_response_headers: "{{ ntfy_container_labels_traefik_additional_response_headers_auto | combine(ntfy_container_labels_traefik_additional_response_headers_custom) }}"
 ntfy_container_labels_traefik_additional_response_headers_auto: |
   {{
