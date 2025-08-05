@@ -24,6 +24,10 @@ ntfy_version: v2.14.0
 
 ntfy_uid: ''
 ntfy_gid: ''
+ntfy_host_filesystem_uid: ''
+ntfy_host_filesystem_gid: ''
+ntfy_docker_userns_enabled: false
+ntfy_docker_userns_offset: 0
 
 # The hostname at which ntfy is served.
 ntfy_hostname: ''
