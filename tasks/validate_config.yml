@@ -1,3 +1,4 @@
+# SPDX-FileCopyrightText: 2023 Julian-Samuel Gebühr
 # SPDX-FileCopyrightText: 2023 Slavi Pantaleev
 # SPDX-FileCopyrightText: 2025 Suguru Hirahara
 #
@@ -26,6 +27,15 @@
     - ntfy_hostname
     - ntfy_path_prefix
     - ntfy_container_network
+
+- name: Fail if SMTP settings are missing (and SMTP is enabled by setting host)
+  ansible.builtin.fail:
+    msg: >-
+      You need to define a required configuration setting (`{{ item }}`) to correctly set up email via SMTP.
+  when: "ntfy_smtp_sender_enabled | bool and lookup('vars', item, default='') | string | length == 0"
+  with_items:
+    - ntfy_smtp_sender_addr_host
+    - ntfy_smtp_sender_from
 
 - name: Run if Traefik is enabled
   when: ntfy_container_labels_traefik_enabled | bool
