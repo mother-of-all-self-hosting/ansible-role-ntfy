@@ -179,6 +179,11 @@ ntfy_systemd_wanted_services_list_default: []
 ntfy_systemd_wanted_services_list_auto: []
 ntfy_systemd_wanted_services_list_custom: []
 
+# Control if message cache is stored in a SQLite file
+# If set to `false`, messages are cached in-memory.
+# See: https://docs.ntfy.sh/config/#message-cache
+ntfy_cache_file_enabled: true
+
 # Control how attachments can be uploaded via PUT.
 ntfy_attachment_enabled: false
 ntfy_attachment_total_size_limit: "5G"
