@@ -118,7 +118,9 @@ ntfy_container_labels_additional_labels: ''
 ntfy_container_health_interval: "{{ '5s' if ntfy_container_labels_traefik_enabled else '60s' }}"
 
 # A list of extra arguments to pass to the container (`docker run` command)
-ntfy_container_extra_arguments: []
+ntfy_container_extra_arguments: "{{ ntfy_container_extra_arguments_auto + ntfy_container_extra_arguments_custom }}"
+ntfy_container_extra_arguments_auto: []
+ntfy_container_extra_arguments_custom: []
 
 # Specifies the value of the `X-XSS-Protection` header
 # Stops pages from loading when they detect reflected cross-site scripting (XSS) attacks.
