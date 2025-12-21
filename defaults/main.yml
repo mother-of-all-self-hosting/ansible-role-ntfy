@@ -30,7 +30,7 @@ ntfy_hostname: ""
 
 ntfy_scheme: https
 
-# The path at which ntfy is exposed.
+# The path at which ntfy is served.
 # This value must either be `/` or not end with a slash (e.g. `/ntfy`).
 ntfy_path_prefix: /
 
