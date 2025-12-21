@@ -22,11 +22,11 @@ ntfy_attachment_cache_path: "{{ ntfy_cache_path }}/attachments"
 # renovate: datasource=docker depName=docker.io/binwiederhier/ntfy
 ntfy_version: v2.15.0
 
-ntfy_uid: ''
-ntfy_gid: ''
+ntfy_uid: ""
+ntfy_gid: ""
 
 # The hostname at which ntfy is served.
-ntfy_hostname: ''
+ntfy_hostname: ""
 
 ntfy_scheme: https
 
@@ -47,7 +47,7 @@ ntfy_container_image_force_pull: "{{ ntfy_container_image.endswith(':latest') }}
 # Controls whether the container exposes its HTTP port (tcp/80 in the container).
 #
 # Takes an "<ip>:<port>" or "<port>" value (e.g. "127.0.0.1:2586"), or empty string to not expose.
-ntfy_container_http_host_bind_port: ''
+ntfy_container_http_host_bind_port: ""
 
 # The base container network. It will be auto-created by this role if it doesn't exist already.
 ntfy_container_network: "{{ ntfy_identifier }}"
@@ -199,11 +199,11 @@ ntfy_visitor_attachment_daily_bandwidth_limit: "500M"
 
 # Controls how email notifications are configured.
 ntfy_smtp_sender_enabled: false
-ntfy_smtp_sender_addr_host: ''  # Hostname
+ntfy_smtp_sender_addr_host: ""  # Hostname
 ntfy_smtp_sender_addr_port: 587
-ntfy_smtp_sender_username: ''  # Username of the SMTP user
-ntfy_smtp_sender_password: ''  # Password of the SMTP user
-ntfy_smtp_sender_from: ''  # Email address of the sender
+ntfy_smtp_sender_username: ""  # Username of the SMTP user
+ntfy_smtp_sender_password: ""  # Password of the SMTP user
+ntfy_smtp_sender_from: ""  # Email address of the sender
 
 # Rate limits
 #
@@ -285,7 +285,7 @@ ntfy_metrics_default_enabled: false
 # Control whether the /metrics endpoint is exposed via a specified IP address and/or port.
 # ntfy_metrics_listen_http_host can be omitted.
 ntfy_metrics_listen_http_host: 0.0.0.0
-ntfy_metrics_listen_http_port: ''
+ntfy_metrics_listen_http_port: ""
 
 # Controls whether the self-check feature should validate SSL certificates.
 ntfy_self_check_validate_certificates: true
