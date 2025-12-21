@@ -120,7 +120,7 @@ ntfy_container_labels_additional_labels_custom: {}
 # For non-Traefik setups, we use the default healthcheck interval (60s) to decrease overhead.
 ntfy_container_health_interval: "{{ '5s' if ntfy_container_labels_traefik_enabled else '60s' }}"
 
-# A list of extra arguments to pass to the container (`docker run` command)
+# A list of extra arguments to pass to the container (`docker create` command)
 ntfy_container_extra_arguments: "{{ ntfy_container_extra_arguments_auto + ntfy_container_extra_arguments_custom }}"
 ntfy_container_extra_arguments_auto: []
 ntfy_container_extra_arguments_custom: []
