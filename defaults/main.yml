@@ -103,12 +103,11 @@ ntfy_container_labels_traefik_additional_response_headers_custom: {}
 #
 # Example:
 # ntfy_container_labels_additional_labels_custom: |
-#   my.label=1
-#   another.label="here"
-ntfy_container_labels_additional_labels: "{{ ntfy_container_labels_additional_labels_auto | combine(ntfy_container_labels_additional_labels_custom) }}"
-ntfy_container_labels_additional_labels_auto: {}
-ntfy_container_labels_additional_labels_custom: {}
-
+#   - my.label=1
+#   - another.label="here"
+ntfy_container_labels_additional_labels: "{{ ntfy_container_labels_additional_labels_auto + ntfy_container_labels_additional_labels_custom }}"
+ntfy_container_labels_additional_labels_auto: []
+ntfy_container_labels_additional_labels_custom: []
 # Specifies how often the container health-check will run.
 #
 # For Traefik based setups, it's important that the interval is short,
