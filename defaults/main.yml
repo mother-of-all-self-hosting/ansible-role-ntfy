@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: 2023 - 2024 Nikita Chernyi
-# SPDX-FileCopyrightText: 2023 - 2025 Slavi Pantaleev
+# SPDX-FileCopyrightText: 2023, 2024 Nikita Chernyi
+# SPDX-FileCopyrightText: 2023-2025 Slavi Pantaleev
 # SPDX-FileCopyrightText: 2024 Sergio Durigan Junior
 # SPDX-FileCopyrightText: 2025 MASH project contributors
-# SPDX-FileCopyrightText: 2025 Suguru Hirahara
+# SPDX-FileCopyrightText: 2025, 2026 Suguru Hirahara
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -325,3 +325,9 @@ ntfy_configuration: "{{ ntfy_configuration_yaml | from_yaml | combine(ntfy_confi
 #     admin: true
 # When credentials are provided, ntfy will enforce authentication.
 ntfy_credentials: []
+
+# Specify the timezone
+ntfy_environment_variables_tz: UTC
+
+# Additional environment variables.
+ntfy_environment_variables_additional_variables: ""
