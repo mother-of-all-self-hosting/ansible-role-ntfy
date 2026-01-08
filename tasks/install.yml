@@ -19,19 +19,19 @@
     - "{{ ntfy_cache_path }}"
     - "{{ ntfy_attachment_cache_path }}"
 
-- name: Ensure ntfy configuration file installed
-  ansible.builtin.copy:
-    content: "{{ ntfy_configuration | to_nice_yaml(indent=2, width=999999) }}"
-    dest: "{{ ntfy_config_path }}/server.yml"
-    mode: "0644"
-    owner: "{{ ntfy_uid }}"
-    group: "{{ ntfy_gid }}"
-
 - name: Ensure ntfy labels installed
   ansible.builtin.template:
     src: "{{ role_path }}/templates/labels.j2"
     dest: "{{ ntfy_base_path }}/labels"
     mode: "0640"
+    owner: "{{ ntfy_uid }}"
+    group: "{{ ntfy_gid }}"
+
+- name: Ensure ntfy configuration file installed
+  ansible.builtin.copy:
+    content: "{{ ntfy_configuration | to_nice_yaml(indent=2, width=999999) }}"
+    dest: "{{ ntfy_config_path }}/server.yml"
+    mode: "0644"
     owner: "{{ ntfy_uid }}"
     group: "{{ ntfy_gid }}"
 
