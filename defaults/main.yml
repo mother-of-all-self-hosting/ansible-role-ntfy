@@ -111,7 +111,7 @@ ntfy_container_labels_traefik_additional_response_headers_custom: {}
 # To add your own custom labels, use `ntfy_container_labels_additional_labels_custom`
 #
 # Example:
-# ntfy_container_labels_additional_labels_custom: |
+# ntfy_container_labels_additional_labels_custom:
 #   - my.label=1
 #   - another.label="here"
 ntfy_container_labels_additional_labels: "{{ ntfy_container_labels_additional_labels_auto + ntfy_container_labels_additional_labels_custom }}"
