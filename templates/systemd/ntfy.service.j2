@@ -30,9 +30,6 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_sy
       --cap-drop=ALL \
       --cap-add=NET_BIND_SERVICE \
       --read-only \
-      {% for arg in ntfy_container_extra_arguments %}
-      {{ arg }} \
-      {% endfor %}
       --network={{ ntfy_container_network }} \
       {% if ntfy_container_http_host_bind_port %}
       -p {{ ntfy_container_http_host_bind_port }}:{{ ntfy_container_http_port }} \
@@ -43,6 +40,9 @@ ExecStartPre={{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_sy
       --mount type=bind,src={{ ntfy_config_path }},dst=/etc/ntfy,ro \
       --mount type=bind,src={{ ntfy_data_path }},dst=/data \
       --mount type=bind,src={{ ntfy_cache_path }},dst=/cache \
+      {% for arg in ntfy_container_extra_arguments %}
+      {{ arg }} \
+      {% endfor %}
       {{ ntfy_container_image }} \
       serve'
 
