@@ -25,10 +25,11 @@ ntfy_version: v2.15.0
 ntfy_uid: ""
 ntfy_gid: ""
 
+# The scheme used for serving ntfy.
+ntfy_scheme: https
+
 # The hostname at which ntfy is served.
 ntfy_hostname: ""
-
-ntfy_scheme: https
 
 # The path at which ntfy is served.
 # This value must either be `/` or not end with a slash (e.g. `/ntfy`).
@@ -44,7 +45,7 @@ ntfy_container_image_registry_prefix_upstream: "{{ ntfy_container_image_registry
 ntfy_container_image_registry_prefix_upstream_default: docker.io/
 ntfy_container_image_force_pull: "{{ ntfy_container_image.endswith(':latest') }}"
 
-# Controls whether the container exposes its HTTP port (tcp/80 in the container).
+# Controls whether the container exposes its HTTP port (tcp/8080 in the container).
 #
 # Takes an "<ip>:<port>" or "<port>" value (e.g. "127.0.0.1:2586"), or empty string to not expose.
 ntfy_container_http_host_bind_port: ""
