@@ -7,6 +7,10 @@
 base_url: {{ ntfy_base_url }}
 behind_proxy: true
 
+{% if ntfy_upstream_base_url is defined %}
+upstream-base-url: {{ ntfy_upstream_base_url }}
+{% endif %}
+
 {% if ntfy_cache_file_enabled %}
 cache_file: /data/cache.db
 {% endif %}
