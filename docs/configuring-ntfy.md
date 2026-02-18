@@ -124,6 +124,16 @@ To enable it, add the following configuration to your `vars.yml` file:
 ntfy_web_root: "app"
 ```
 
+### Message cache
+
+By default the ntfy instance is configured to keep notifications in an on-disk cache, so that notifications can be retaied across restarts. The cache file is stored in the directory specified with `ntfy_data_path`.
+
+To use an in-memory cache instead, add the following configuration to your `vars.yml` file:
+
+```yaml
+ntfy_cache_file_enabled: false
+```
+
 ### Allow attachments (optional)
 
 The ntfy server can be configured to allow users to [attach files](https://docs.ntfy.sh/publish/#attachments) to notifications (default: max. 15M per file, 5G in total).
@@ -150,17 +160,17 @@ To enable it, add the following configuration to your `vars.yml` file (adapt to 
 
 ```yaml
 ntfy_smtp_sender_enabled: true
-ntfy_smtp_sender_addr_host: ''  # Hostname
+ntfy_smtp_sender_addr_host: ""  # Hostname
 ntfy_smtp_sender_addr_port: 587
-ntfy_smtp_sender_username: ''  # Username of the SMTP user
-ntfy_smtp_sender_password: ''  # Password of the SMTP user
-ntfy_smtp_sender_from: ''  # Email address of the sender
+ntfy_smtp_sender_username: ""  # Username of the SMTP user
+ntfy_smtp_sender_password: ""  # Password of the SMTP user
+ntfy_smtp_sender_from: ""  # Email address of the sender
 ```
 
-⚠️ **Notes**:
-
-- Your IP address is included in the notification email's body in order to prevent abuse.
-- Without setting an authentication method such as DKIM, SPF, and DMARC for your hostname, notification email is most likely to be quarantined as spam at recipient's mail servers. If you have set up a mail server with [our exim-relay Ansible role](https://github.com/mother-of-all-self-hosting/ansible-role-exim-relay), you can enable DKIM signing with it. Refer [its documentation](https://github.com/mother-of-all-self-hosting/ansible-role-exim-relay/blob/main/docs/configuring-exim-relay.md#enable-dkim-support-optional) for details.
+>[!NOTE]
+>
+> - Your IP address is included in the notification email's body in order to prevent abuse.
+> - Without setting an authentication method such as DKIM, SPF, and DMARC for your hostname, notification email is most likely to be quarantined as spam at recipient's mail servers. If you have set up a mail server with [our exim-relay Ansible role](https://github.com/mother-of-all-self-hosting/ansible-role-exim-relay), you can enable DKIM signing with it. Refer [its documentation](https://github.com/mother-of-all-self-hosting/ansible-role-exim-relay/blob/main/docs/configuring-exim-relay.md#enable-dkim-support-optional) for details.
 
 ### Edit rate limits (optional)
 
