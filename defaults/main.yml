@@ -340,7 +340,7 @@ ntfy_visitor_request_limit_exempt_hosts_container_networks: |
 ntfy_visitor_request_limit_exempt_hosts_container_networks_auto: []
 ntfy_visitor_request_limit_exempt_hosts_container_networks_custom: []
 
-# Control whether a /metrics endpoint is exposed for the default ntfy server.
+# Control if the /metrics endpoint for Prometheus is enabled
 ntfy_metrics_default_enabled: false
 
 # Control whether the /metrics endpoint is exposed via a specified IP address and/or port.
