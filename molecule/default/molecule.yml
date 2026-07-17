@@ -33,7 +33,8 @@ provisioner:
         # Variables for ntfy
         ntfy_uid: 1000
         ntfy_gid: 1000
-        ntfy_hostname: ntfy
+        ntfy_scheme: http
+        ntfy_hostname: localhost
         ntfy_container_labels_traefik_enabled: false
         ntfy_container_http_host_bind_port: 8080
         ntfy_web_root: app
