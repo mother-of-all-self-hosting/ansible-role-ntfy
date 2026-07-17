@@ -23,6 +23,12 @@
         fail_msg: "ntfy.service not active ({{ ntfy_service.status.ActiveState }})"
         success_msg: "ntfy.service is active"
 
+    - name: Retrieve ntfy service log for debugging
+      when: ntfy_debug_service_enabled | bool
+      ansible.builtin.command:
+        cmd: journalctl -xeu ntfy.service
+      changed_when: false
+
     - name: Wait for ntfy HTTP endpoint to respond (up to 10m)
       ansible.builtin.uri:
         url: "http://localhost:8080/"
