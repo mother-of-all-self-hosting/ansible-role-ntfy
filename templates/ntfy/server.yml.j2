@@ -35,7 +35,7 @@ visitor-attachment-total-size-limit: {{ ntfy_visitor_attachment_total_size_limit
 visitor-attachment-daily-bandwidth-limit: {{ ntfy_visitor_attachment_daily_bandwidth_limit | to_json }}
 {% endif %}
 
-{% if ntfy_auth_enabled %}
+{% if ntfy_auth_enabled | bool %}
 auth-file: /data/auth.db
 auth-default-access: {{ ntfy_auth_default_access | to_json }}
 {% if ntfy_auth_users | length > 0 %}
@@ -51,6 +51,10 @@ auth-access:
 {% endfor %}
 {% endif %}
 {% endif %}
+
+enable-login: {{ ntfy_enable_login | bool | to_json }}
+enable-signup: {{ ntfy_enable_signup | bool | to_json }}
+enable-reservations: {{ ntfy_enable_reservations | bool | to_json }}
 
 {% if ntfy_smtp_sender_enabled %}
 smtp-sender-addr: "{{ ntfy_smtp_sender_addr_host }}:{{ ntfy_smtp_sender_addr_port }}"

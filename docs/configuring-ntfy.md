@@ -165,6 +165,42 @@ To enable it, add the following configuration to your `vars.yml` file:
 ntfy_web_root: "app"
 ```
 
+#### Log in from the web app
+
+If you have [enabled access control with authentication](#enable-access-control-with-authentication-optional), the topics on your server are not reachable until your users log in.
+
+The role lets users log in (from the web app and from the API) as soon as you declare users, so the combination you most likely want is just these two settings:
+
+```yaml
+# Serve the web app, so that there is a login screen to begin with
+ntfy_web_root: "app"
+
+ntfy_auth_users_custom:
+  - username: alice
+    password_hash: $2a$10$YLiO8U21sX1uhZamTLJXHuxgVC0Z/GKISibrKCLohPgtG7yIxSk4C
+    role: admin
+```
+
+Logging in is controlled by `ntfy_enable_login`, which follows `ntfy_auth_enabled` by default. To decide for yourself, set it explicitly:
+
+```yaml
+ntfy_enable_login: true
+```
+
+**Note**: the web app is served from the root path, so it is only reachable when `ntfy_path_prefix` is `/` (see above).
+
+You can also let visitors register an account themselves, which grants them the access defined by `ntfy_auth_default_access` (`deny-all` by default, so newly registered users cannot do anything until you grant them access):
+
+```yaml
+ntfy_enable_signup: true
+```
+
+Finally, users may be allowed to reserve topics, claiming a topic name for themselves and deciding who else may access it:
+
+```yaml
+ntfy_enable_reservations: true
+```
+
 ### Message cache
 
 By default the ntfy instance is configured to keep notifications in an on-disk cache, so that notifications can be retaied across restarts. The cache file is stored in the directory specified with `ntfy_data_path`.

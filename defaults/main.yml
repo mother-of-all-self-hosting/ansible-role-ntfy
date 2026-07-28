@@ -296,6 +296,27 @@ ntfy_visitor_email_limit_replenish: "1h"  # default
 # - `home` serves some homepage (like https://ntfy.sh), which doesn't seem useful
 ntfy_web_root: disable
 
+# Controls the `enable-login` configuration setting, which specifies whether users may log in
+# (via the web app or the API) with an account on this ntfy server.
+#
+# This defaults to being enabled whenever authentication is set up (see `ntfy_auth_enabled`),
+# because a server which restricts access to its topics needs to let its users authenticate.
+#
+# Note that logging in via the web app also requires the web app to be served (see `ntfy_web_root`).
+ntfy_enable_login: "{{ ntfy_auth_enabled }}"
+
+# Controls the `enable-signup` configuration setting, which specifies whether visitors may
+# create an account on this ntfy server themselves.
+#
+# Accounts created this way only get the access defined by `ntfy_auth_default_access`.
+ntfy_enable_signup: false
+
+# Controls the `enable-reservations` configuration setting, which specifies whether users may
+# reserve topics (that is, claim a topic name and decide who else may access it).
+#
+# Reserving a topic requires an account, so `ntfy_enable_login` needs to be enabled as well.
+ntfy_enable_reservations: false
+
 # Controls the NTFY_VISITOR_REQUEST_LIMIT_EXEMPT_HOSTS environment variable's value.
 # Exempted hosts can be defined as hostnames, IP addresses or network ranges.
 #
