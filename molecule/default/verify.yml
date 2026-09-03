@@ -91,7 +91,7 @@
       ansible.builtin.set_fact:
         ntfy_reported_version: "{{ (ntfy_version_output.stdout | regex_search('ntfy version ([^\\s]+)', '\\1') | first) | trim }}"
 
-    - name: Assert the running ntfy is the version the role asks for
+    - name: Assert the running ntfy is the version this role installs
       ansible.builtin.assert:
         that: >-
           ntfy_reported_version.startswith(
