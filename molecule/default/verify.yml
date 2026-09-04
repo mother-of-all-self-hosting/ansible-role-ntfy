@@ -246,7 +246,7 @@
         fail_msg: "ntfy did not return the message that was published to it: {{ ntfy_poll.content }}"
         success_msg: "ntfy stores a published message and hands it back when polled"
 
-    - name: Show ntfy verification summary
+    - name: Show the ntfy verification summary
       ansible.builtin.debug:
         msg:
           - "ntfy systemd: {{ ntfy_service.status.ActiveState }}"
