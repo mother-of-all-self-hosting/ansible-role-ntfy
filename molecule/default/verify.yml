@@ -39,14 +39,9 @@
         cmd: journalctl -xeu {{ ntfy_defaults.ntfy_identifier }}.service
       changed_when: false
 
-    # A systemd unit reaching "active" only means that `docker start` has not
-    # exited yet. /v1/health is the first thing the ntfy process itself has to
-    # answer, so it is where a container that never got going shows up.
-    #
-    # It also already witnesses one thing about the rendered configuration: an
-    # ntfy that received no configuration listens on :80, and the port
-    # published here maps to :8080, which only the role's `listen-http` puts
-    # anything behind.
+    # This should confirm at the same time that ntfy has loaded configuration,
+    # because it gets ntfy the published port maps to :8080, which only the role's
+    # `listen-http` puts anything behind.
     - name: Wait for ntfy to report itself healthy (up to 10m)
       ansible.builtin.uri:
         url: "http://localhost:{{ ntfy_container_http_host_bind_port }}/v1/health"
@@ -63,15 +58,8 @@
         fail_msg: "ntfy is not healthy: {{ ntfy_health.content | default('no content') }}"
         success_msg: "ntfy reports itself healthy"
 
-    # Tying the running version to `ntfy_version` is what makes this scenario a
-    # real test of the version that Renovate bumps: a bump that produces an
-    # unusable image cannot pass here.
-    #
     # ntfy serves no version over HTTP - /v1/health carries nothing but
     # `{"healthy":true}` - so this asks the binary in the running container.
-    #
-    # community.docker is deliberately avoided throughout this playbook: the
-    # linting environment in CI has no collections installed.
     - name: Query the version reported by the running ntfy
       ansible.builtin.command:
         cmd: "docker exec {{ ntfy_defaults.ntfy_identifier }} ntfy --version"
