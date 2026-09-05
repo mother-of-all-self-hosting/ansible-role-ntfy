@@ -76,7 +76,7 @@
 
     - name: Assert the running ntfy is the version this role installs
       ansible.builtin.assert:
-        that: "ntfy_reported_version.startswith(ntfy_defaults.ntfy_version | string | regex_replace('^v', ''))"
+        that: ntfy_reported_version == (ntfy_defaults.ntfy_version | string | regex_replace('^v', ''))
         fail_msg: "ntfy reports {{ ntfy_reported_version | default('none') }}, expected {{ ntfy_defaults.ntfy_version }}"
         success_msg: "ntfy reports {{ ntfy_reported_version }}"
 
