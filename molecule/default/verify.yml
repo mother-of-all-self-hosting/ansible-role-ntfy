@@ -60,7 +60,7 @@
 
     # ntfy serves no version over HTTP - /v1/health carries nothing but
     # `{"healthy":true}` - so this asks the binary in the running container.
-    - name: Query the version reported by the running ntfy
+    - name: Query the version of the running ntfy
       ansible.builtin.command:
         cmd: "docker exec {{ ntfy_defaults.ntfy_identifier }} ntfy --version"
       register: ntfy_version_output
