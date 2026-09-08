@@ -69,14 +69,14 @@
     - name: Query the version of the running ntfy
       ansible.builtin.command:
         cmd: "docker exec {{ ntfy_defaults.ntfy_identifier }} ntfy --version"
-      register: ntfy_version_output
+      register: ntfy_version_reported
       changed_when: false
 
     # `ntfy --version` prints `ntfy version 2.27.0`, without the leading `v`
     # that `ntfy_version` carries, so the `v` is stripped from the expectation.
     - name: Determine the version of the running ntfy
       ansible.builtin.set_fact:
-        ntfy_reported_version: "{{ (ntfy_version_output.stdout | regex_search('ntfy version ([^\\s]+)', '\\1') | first) | trim }}"
+        ntfy_reported_version: "{{ (ntfy_version_reported.stdout | regex_search('ntfy version ([^\\s]+)', '\\1') | first) | trim }}"
 
     # The comparison is a prefix match, so
     # that a build suffix appearing upstream does not fail the scenario.
