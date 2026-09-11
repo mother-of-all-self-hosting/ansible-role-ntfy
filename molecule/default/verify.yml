@@ -23,7 +23,7 @@
 
         - name: Wait for the ntfy systemd service to become active (up to 180s)
           ansible.builtin.systemd_service:
-            name: "{{ ntfy_defaults.ntfy_identifier }}.service"
+            name: ntfy.service
           register: ntfy_service
           until: ntfy_service.status.ActiveState == 'active'
           retries: 36
@@ -44,7 +44,7 @@
         - name: Retrieve the ntfy systemd service log for debugging
           when: ntfy_debug_service_enabled | bool
           ansible.builtin.command:
-            cmd: journalctl --no-pager --output=cat --unit={{ ntfy_defaults.ntfy_identifier }}.service
+            cmd: journalctl --no-pager --output=cat --unit=ntfy.service
           changed_when: false
 
         # This should confirm at the same time that ntfy has loaded configuration,
@@ -70,7 +70,7 @@
         # `{"healthy":true}` - so this asks the binary in the running container.
         - name: Query the version of the running ntfy
           ansible.builtin.command:
-            cmd: "docker exec {{ ntfy_defaults.ntfy_identifier }} ntfy --version"
+            cmd: docker exec ntfy ntfy --version
           register: ntfy_version_reported
           changed_when: false
 
