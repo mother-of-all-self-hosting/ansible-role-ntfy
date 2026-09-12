@@ -58,20 +58,23 @@
         # This should confirm at the same time that ntfy has loaded configuration,
         # because it gets ntfy the published port maps to :8080, which only the role's
         # `listen-http` puts anything behind.
-        - name: Wait for ntfy to report itself healthy (up to 10m)
+        - name: Wait for ntfy to report itself healthy (up to 180s)
           ansible.builtin.uri:
             url: "http://localhost:{{ ntfy_container_http_host_bind_port }}/v1/health"
             method: GET
             return_content: true
           register: ntfy_health
           until: ntfy_health.status == 200 and ntfy_health.json.healthy | default(false)
-          retries: 120
+          retries: 36
           delay: 5
+          # So that giving up is reported by the assertion below rather than as a
+          # wall of systemd unit properties.
+          failed_when: false
 
         - name: Assert ntfy reports itself healthy
           ansible.builtin.assert:
             that: ntfy_health.json.healthy
-            fail_msg: "ntfy is not healthy: {{ ntfy_health.content | default('no content') }}"
+            fail_msg: "ntfy did not report itself healthy: {{ ntfy_health.content | default('no response') }}"
             success_msg: "ntfy reports itself healthy"
 
         # ntfy serves no version over HTTP - /v1/health carries nothing but
