@@ -385,7 +385,7 @@ ntfy is built as [progressive web app (PWA)](https://docs.ntfy.sh/subscribe/pwa/
 
 ### UnifiedPush-compatible application
 
-⚠️ [UnifiedPush does not work on iOS.](https://unifiedpush.org/users/faq/#will-unifiedpush-ever-work-on-ios)
+⚠️ [UnifiedPush does not work on iOS.](https://unifiedpush.org/users/faq/#q-will-unifiedpush-ever-work-on-ios)
 
 ntfy implements [UnifiedPush](https://unifiedpush.org), the standard which makes it possible to send and receive push notifications without using Google's Firebase Cloud Messaging (FCM) service.
 
