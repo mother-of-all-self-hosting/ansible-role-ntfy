@@ -281,7 +281,7 @@ ntfy_database_sslmode: disable
 ntfy_database_name: ntfy
 
 # See: https://docs.ntfy.sh/config/#postgresql and https://docs.cloud.google.com/spanner/docs/pg-pgx-connect
-ntfy_database_url: "postgres://{{ ntfy_database_username }}:{{ ntfy_database_password }}@{{ ntfy_database_hostname }}:{{ ntfy_database_port }}/{{ ntfy_database_name }}?sslmode={{ ntfy_database_sslmode }}"
+ntfy_database_url: "postgres://{{ ntfy_database_username | urlencode | replace('/', '%2F') }}:{{ ntfy_database_password | urlencode | replace('/', '%2F') }}@{{ ntfy_database_hostname }}:{{ ntfy_database_port }}/{{ ntfy_database_name }}?sslmode={{ ntfy_database_sslmode }}"
 
 ########################################################################
 #                                                                      #
